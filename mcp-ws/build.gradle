@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+    id 'com.diffplug.spotless' version libs.versions.spotlessVersion
+    id 'org.kordamp.gradle.jandex' version libs.versions.jandexPluginVersion
+}
+
+group = "${group}"
+version = "${version}"
+
+java.toolchain.languageVersion = JavaLanguageVersion.of("${javaVersion}")
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation(libs.quarkusArc)
+    implementation(libs.quarkusRestClientJackson)
+    implementation(libs.quarkusQuteWeb)
+    implementation(libs.quarkusMcpServerStdio)
+    implementation(libs.quarkusMcpServerSse)
+
+    implementation(libs.lombok)
+    annotationProcessor(libs.lombok)
+
+    implementation(libs.smallryeJandex)
+    annotationProcessor(libs.smallryeJandex)
+
+    testImplementation(libs.quarkusJunit5)
+    testImplementation(libs.quarkusRestAssured)
+    testImplementation(libs.assertjCore)
+}
+
+quarkus {
+    setProperty("version", "${version}")
+}
+
+spotless.java { googleJavaFormat(libs.versions.googleJavaFormatVersion.get()) }
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}

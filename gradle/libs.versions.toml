@@ -1,0 +1,38 @@
+[versions]
+langchain4jVersion = '1.1.0'
+lombokVersion = '1.18.38'
+quarkusLangchain4jOllamaVersion = '1.0.2'
+quarkusMcpServerStdio = '1.4.0'
+quarkusMcpServerSseVersion = '1.4.0'
+quarkusMcpClientVersion = '1.1.0'
+spotlessVersion = '6.23.3'
+googleJavaFormatVersion = '1.19.1'
+jandexPluginVersion = '2.2.0'
+smallryeJandexVersion = '3.4.0'
+hibernateValidatorVersion = '9.0.1.Final'
+
+assertjCoreVersion = '3.27.3'
+
+[plugins]
+
+
+[libraries]
+quarkusRest = { module = "io.quarkus:quarkus-rest" }
+quarkusArc = { module = "io.quarkus:quarkus-arc" }
+quarkusRestJackson = { module = "io.quarkus:quarkus-rest-jackson" }
+quarkusRestClientJackson = { module = "io.quarkus:quarkus-rest-client-jackson" }
+quarkusQuteWeb = { module = "io.quarkiverse.qute.web:quarkus-qute-web" }
+quarkusMcpServerStdio = { module = "io.quarkiverse.mcp:quarkus-mcp-server-stdio", version.ref = "quarkusMcpServerStdio" }
+quarkusMcpServerSse = { module = "io.quarkiverse.mcp:quarkus-mcp-server-sse", version.ref = "quarkusMcpServerSseVersion" }
+quarkusMcpClient = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-mcp", version.ref = "quarkusMcpClientVersion" }
+quarkusLangchain4jOllama = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-ollama", version.ref = "quarkusLangchain4jOllamaVersion" }
+langchain4j = { module = "dev.langchain4j:langchain4j", version.ref = "langchain4jVersion" }
+
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombokVersion" }
+hibernateValidator = { module = "org.hibernate.validator:hibernate-validator", version.ref = "hibernateValidatorVersion" }
+
+smallryeJandex = { module = "io.smallrye:jandex", version.ref = "smallryeJandexVersion" }
+
+quarkusJunit5 = { module = "io.quarkus:quarkus-junit5" }
+quarkusRestAssured = { module = "io.rest-assured:rest-assured" }
+assertjCore = { module = "org.assertj:assertj-core", version.ref = "assertjCoreVersion" }

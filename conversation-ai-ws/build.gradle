@@ -1,0 +1,51 @@
+plugins {
+    id 'java'
+    id 'io.quarkus'
+    id 'com.diffplug.spotless' version libs.versions.spotlessVersion
+}
+
+group = "${group}"
+version = "${version}"
+
+java.toolchain.languageVersion = JavaLanguageVersion.of("${javaVersion}")
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {
+    implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
+    implementation(libs.quarkusArc)
+    implementation(libs.quarkusRest)
+    implementation(libs.quarkusRestJackson)
+    implementation(libs.langchain4j)
+    implementation(libs.quarkusLangchain4jOllama)
+    implementation(libs.quarkusMcpClient)
+
+    implementation(libs.lombok)
+    annotationProcessor(libs.lombok)
+    implementation(libs.hibernateValidator)
+
+    testImplementation(libs.quarkusJunit5)
+    testImplementation(libs.quarkusRestAssured)
+}
+
+quarkus {
+    setProperty("version", "${version}")
+}
+
+spotless.java { googleJavaFormat(libs.versions.googleJavaFormatVersion.get()) }
+
+test {
+    systemProperty "java.util.logging.manager", "org.jboss.logmanager.LogManager"
+}
+
+compileJava {
+    options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
