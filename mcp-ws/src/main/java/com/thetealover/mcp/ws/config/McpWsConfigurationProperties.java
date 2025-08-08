@@ -5,4 +5,6 @@ import io.smallrye.config.ConfigMapping;
 @ConfigMapping(prefix = "ws")
 public interface McpWsConfigurationProperties {
   String appVersion();
+
+  String weatherApiKey();
 }

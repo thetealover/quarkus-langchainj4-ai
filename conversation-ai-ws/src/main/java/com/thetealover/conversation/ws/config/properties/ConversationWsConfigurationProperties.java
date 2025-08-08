@@ -1,4 +1,4 @@
-package com.thetealover.conversation.ws.config;
+package com.thetealover.conversation.ws.config.properties;
 
 import io.smallrye.config.ConfigMapping;
 

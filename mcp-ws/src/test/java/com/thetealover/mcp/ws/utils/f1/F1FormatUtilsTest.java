@@ -6,13 +6,11 @@ import com.thetealover.mcp.ws.adapter.out.client.f1.model.DriverDto;
 import io.quarkus.test.junit.QuarkusTest;
 import jakarta.inject.Inject;
 import java.util.List;
-import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.Test;
 
 @QuarkusTest
-@AllArgsConstructor
 class F1FormatUtilsTest {
-  @Inject F1FormatUtils f1FormatUtils;
+  @Inject F1FormatUtils formatUtils;
 
   @Test
   void formatSingleDriverData() {
@@ -28,7 +26,7 @@ class F1FormatUtilsTest {
             .url("https://en.wikipedia.org/wiki/Max_Verstappen")
             .build();
 
-    final String result = f1FormatUtils.formatDriversData(List.of(driverDto));
+    final String result = formatUtils.formatDriversData(List.of(driverDto));
 
     assertThat(result)
         .isEqualTo(
@@ -68,7 +66,7 @@ Wikipedia URL: https://en.wikipedia.org/wiki/Max_Verstappen
             .url("https://en.wikipedia.org/wiki/Lewis_Hamilton")
             .build();
 
-    final String result = f1FormatUtils.formatDriversData(List.of(max, lewis));
+    final String result = formatUtils.formatDriversData(List.of(max, lewis));
 
     assertThat(result)
         .isEqualTo(
