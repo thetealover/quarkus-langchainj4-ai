@@ -17,6 +17,6 @@ public interface AiConfigurationProperties {
 
     Double topP();
 
-    Double topK();
+    Integer topK();
   }
 }

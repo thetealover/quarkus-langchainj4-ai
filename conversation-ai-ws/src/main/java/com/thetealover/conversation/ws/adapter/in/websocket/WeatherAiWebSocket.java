@@ -1,6 +1,6 @@
 package com.thetealover.conversation.ws.adapter.in.websocket;
 
-import com.thetealover.conversation.ws.service.ai.weather.OllamaAiStreamingWeatherService;
+import com.thetealover.conversation.ws.service.ai.weather.OllamaAiWeatherAdvisingService;
 import com.thetealover.conversation.ws.service.ai.weather.OllamaAiWeatherService;
 import io.quarkus.websockets.next.*;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class WeatherAiWebSocket {
   // todo to be enhanced - MCP calls
-  private final OllamaAiStreamingWeatherService ollamaAiStreamingWeatherService;
+  private final OllamaAiWeatherAdvisingService ollamaAiWeatherAdvisingService;
   private final OllamaAiWeatherService ollamaAiWeatherService;
 
   @OnOpen

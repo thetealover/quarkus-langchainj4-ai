@@ -6,21 +6,23 @@ import com.thetealover.mcp.ws.config.McpWsConfigurationProperties;
 import com.thetealover.mcp.ws.utils.weather.WeatherFormatUtils;
 import io.quarkiverse.mcp.server.Tool;
 import io.quarkiverse.mcp.server.ToolArg;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Singleton;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@ApplicationScoped
+@Singleton
 @RequiredArgsConstructor
 public class WeatherTools {
   private final McpWsConfigurationProperties properties;
   private final WeatherApiV1Client weatherApiV1Client;
   private final WeatherFormatUtils weatherFormatUtils;
 
-  @Tool(name = "weather", description = "Get the current weather information for a city")
+  @Tool(
+      name = "get the current weather for a city",
+      description = "Gets the current weather information for a city")
   public String getCurrentWeather(
-      @ToolArg(name = "Location", description = "city name", defaultValue = "London")
+      @ToolArg(name = "city", description = "the name of the city", defaultValue = "London")
           final String location) {
     final WeatherDto currentWeather =
         weatherApiV1Client.getCurrentWeather(location, properties.weatherApiKey());

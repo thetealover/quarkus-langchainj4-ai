@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'io.quarkus'
     id 'com.diffplug.spotless' version libs.versions.spotlessVersion
+    id 'org.kordamp.gradle.jandex' version libs.versions.jandexPluginVersion
 }
 
 group = "${group}"
@@ -32,6 +33,8 @@ dependencies {
 
     testImplementation(libs.quarkusJunit5)
     testImplementation(libs.quarkusRestAssured)
+    implementation 'com.squareup.okhttp3:okhttp:5.1.0'
+    implementation 'com.squareup.okhttp3:okhttp-sse:5.1.0'
 }
 
 quarkus {

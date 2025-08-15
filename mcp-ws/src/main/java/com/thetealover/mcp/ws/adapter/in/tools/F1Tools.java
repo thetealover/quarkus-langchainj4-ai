@@ -8,14 +8,14 @@ import com.thetealover.mcp.ws.adapter.out.client.f1.model.DriverDto;
 import com.thetealover.mcp.ws.utils.f1.F1FormatUtils;
 import io.quarkiverse.mcp.server.Tool;
 import io.quarkiverse.mcp.server.ToolArg;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Singleton;
 import jakarta.json.JsonObject;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@ApplicationScoped
+@Singleton
 @RequiredArgsConstructor
 public class F1Tools {
   private static final String DRIVERS_JSON_KEY = "drivers";
@@ -24,7 +24,7 @@ public class F1Tools {
   private final ObjectMapper objectMapper;
   private final F1FormatUtils f1FormatUtils;
 
-  @Tool(name = "F1 driver search", description = "Search of F1 drivers")
+  @Tool(name = "F1_drivers_search", description = "Searches for F1 drivers")
   public String searchF1Drivers(
       @ToolArg(
               name = "F1 driver search query argument",

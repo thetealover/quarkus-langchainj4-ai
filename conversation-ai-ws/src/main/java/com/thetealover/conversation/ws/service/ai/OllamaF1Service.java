@@ -4,7 +4,6 @@ import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
 import io.quarkiverse.langchain4j.mcp.runtime.McpToolBox;
-import jakarta.enterprise.context.ApplicationScoped;
 
 @RegisterAiService
 @SystemMessage(
@@ -15,7 +14,6 @@ import jakarta.enterprise.context.ApplicationScoped;
         Keep your answers concise and relevant, but not more than necessary.
         If you don't know the answer, say that you don't know it.
     """)
-@ApplicationScoped
 public interface OllamaF1Service {
 
   @McpToolBox
