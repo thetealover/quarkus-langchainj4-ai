@@ -1,16 +1,14 @@
 package com.thetealover.conversation.ws.adapter.in.websocket;
 
-import com.thetealover.conversation.ws.service.ai.weather.OllamaAiWeatherAdvisingService;
 import com.thetealover.conversation.ws.service.ai.weather.OllamaAiWeatherService;
 import io.quarkus.websockets.next.*;
-import lombok.RequiredArgsConstructor;
+import jakarta.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @WebSocket(path = "weather-ai")
-@RequiredArgsConstructor
 public class WeatherAiWebSocket {
-  // todo to be enhanced - MCP calls
-  private final OllamaAiWeatherAdvisingService ollamaAiWeatherAdvisingService;
-  private final OllamaAiWeatherService ollamaAiWeatherService;
+  @Inject OllamaAiWeatherService ollamaAiWeatherService;
 
   @OnOpen
   public String onOpen() {
@@ -19,6 +17,8 @@ public class WeatherAiWebSocket {
 
   @OnTextMessage
   public String onTextMessage(final String message) {
+    log.info("Received message: {}", message);
+
     return ollamaAiWeatherService.chat(message);
   }
 }

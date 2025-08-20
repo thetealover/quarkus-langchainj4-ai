@@ -1,10 +1,11 @@
 [versions]
-langchain4jVersion = '1.1.0'
+langchain4jVersion = '1.3.0'
 lombokVersion = '1.18.38'
-quarkusLangchain4jOllamaVersion = '1.0.2'
-quarkusMcpServerStdio = '1.4.0'
-quarkusMcpServerSseVersion = '1.4.0'
-quarkusMcpClientVersion = '1.1.0'
+quarkusLangchain4jOllamaVersion = '1.1.1'
+quarkusMcpServerSseVersion = '1.4.1'
+quarkusMcpClientSseVersion = '1.4.1'
+quarkusMcpVersion = '1.1.1'
+quarkusLangchain4jCoreVersion = '1.1.1'
 langchain4jPgVectorVersion = '0.36.2'
 quarkusLangchain4jPgVectorVersion = '1.1.0'
 spotlessVersion = '6.23.3'
@@ -22,10 +23,11 @@ quarkusWebSockets = { module = "io.quarkus:quarkus-websockets-next" }
 quarkusRestJackson = { module = "io.quarkus:quarkus-rest-jackson" }
 quarkusRestClientJackson = { module = "io.quarkus:quarkus-rest-client-jackson" }
 quarkusQuteWeb = { module = "io.quarkiverse.qute.web:quarkus-qute-web" }
-quarkusMcpServerStdio = { module = "io.quarkiverse.mcp:quarkus-mcp-server-stdio", version.ref = "quarkusMcpServerStdio" }
 quarkusMcpServerSse = { module = "io.quarkiverse.mcp:quarkus-mcp-server-sse", version.ref = "quarkusMcpServerSseVersion" }
-quarkusMcpClient = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-mcp", version.ref = "quarkusMcpClientVersion" }
+quarkusMcpClientSse = { module = "io.quarkiverse.mcp:quarkus-mcp-server-sse-client", version.ref = "quarkusMcpClientSseVersion" }
+quarkusMcp = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-mcp", version.ref = "quarkusMcpVersion" }
 quarkusLangchain4jOllama = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-ollama", version.ref = "quarkusLangchain4jOllamaVersion" }
+quarkusLangchain4jCore = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-core", version.ref = "quarkusLangchain4jCoreVersion" }
 langchain4j = { module = "dev.langchain4j:langchain4j", version.ref = "langchain4jVersion" }
 langchain4jPgVector = { module = "dev.langchain4j:langchain4j-pgvector", version.ref = "langchain4jPgVectorVersion" }
 quarkusLangchain4jPgVector = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-pgvector", version.ref = "quarkusLangchain4jPgVectorVersion" }

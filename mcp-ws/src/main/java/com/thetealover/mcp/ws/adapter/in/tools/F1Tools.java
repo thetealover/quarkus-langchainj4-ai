@@ -24,7 +24,7 @@ public class F1Tools {
   private final ObjectMapper objectMapper;
   private final F1FormatUtils f1FormatUtils;
 
-  @Tool(name = "F1_drivers_search", description = "Searches for F1 drivers")
+  @Tool(name = "search of F1 drivers", description = "Searches for F1 drivers")
   public String searchF1Drivers(
       @ToolArg(
               name = "F1 driver search query argument",

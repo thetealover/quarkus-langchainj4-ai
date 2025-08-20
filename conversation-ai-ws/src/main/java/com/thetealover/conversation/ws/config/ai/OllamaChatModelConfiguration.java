@@ -3,10 +3,10 @@ package com.thetealover.conversation.ws.config.ai;
 import com.thetealover.conversation.ws.config.ai.qualifier.CustomOllamaStreamingChatModel;
 import com.thetealover.conversation.ws.config.ai.qualifier.WeatherOllamaChatModel;
 import com.thetealover.conversation.ws.config.properties.AiConfigurationProperties;
-import dev.langchain4j.http.client.jdk.JdkHttpClientBuilderFactory;
 import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.model.ollama.OllamaChatModel;
 import dev.langchain4j.model.ollama.OllamaStreamingChatModel;
+import io.quarkiverse.langchain4j.jaxrsclient.JaxRsHttpClientBuilderFactory;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
@@ -14,6 +14,9 @@ import java.time.Duration;
 
 @Singleton
 public class OllamaChatModelConfiguration {
+  private static final int CONNECT_TIMEOUT_SECONDS = 3;
+  private static final int READ_TIMEOUT_SECONDS = 10;
+
   @Inject AiConfigurationProperties aiProperties;
 
   @Produces
@@ -23,10 +26,10 @@ public class OllamaChatModelConfiguration {
     return OllamaStreamingChatModel.builder()
         .baseUrl(aiProperties.ollamaBaseUrl())
         .httpClientBuilder(
-            new JdkHttpClientBuilderFactory()
+            new JaxRsHttpClientBuilderFactory()
                 .create()
-                .connectTimeout(Duration.ofSeconds(3))
-                .readTimeout(Duration.ofSeconds(10)))
+                .connectTimeout(Duration.ofSeconds(CONNECT_TIMEOUT_SECONDS))
+                .readTimeout(Duration.ofSeconds(READ_TIMEOUT_SECONDS)))
         .build();
   }
 
@@ -41,9 +44,9 @@ public class OllamaChatModelConfiguration {
         .topK(aiProperties.weatherAdvisor().topK())
         .topP(aiProperties.weatherAdvisor().topP())
         .httpClientBuilder(
-            new JdkHttpClientBuilderFactory()
+            new JaxRsHttpClientBuilderFactory()
                 .create()
-                .connectTimeout(Duration.ofSeconds(3))
+                .connectTimeout(Duration.ofSeconds(CONNECT_TIMEOUT_SECONDS))
                 .readTimeout(Duration.ofSeconds(10)))
         .build();
   }

@@ -20,7 +20,7 @@ public class WeatherTools {
 
   @Tool(
       name = "get the current weather for a city",
-      description = "Gets the current weather information for a city")
+      description = "gets the current weather information for a city")
   public String getCurrentWeather(
       @ToolArg(name = "city", description = "the name of the city", defaultValue = "London")
           final String location) {

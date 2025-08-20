@@ -13,6 +13,7 @@ import jakarta.inject.Singleton;
 @Singleton
 public class AiAssistantConfiguration {
   @Inject @CustomOllamaStreamingChatModel OllamaStreamingChatModel customStreamingOllamaChatModel;
+
   @Inject @WeatherMcpToolProvider ToolProvider mcpToolProvider;
 
   @Produces

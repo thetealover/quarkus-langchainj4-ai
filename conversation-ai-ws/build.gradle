@@ -22,8 +22,10 @@ dependencies {
     implementation(libs.quarkusWebSockets)
     implementation(libs.quarkusRestJackson)
     implementation(libs.quarkusLangchain4jOllama)
-    implementation(libs.quarkusMcpClient)
+    implementation(libs.quarkusMcp)
+    implementation(libs.quarkusMcpClientSse)
     implementation(libs.langchain4j)
+    implementation(libs.quarkusLangchain4jCore)
 //    implementation(libs.langchain4jPgVector)
 //    implementation(libs.quarkusLangchain4jPgVector)
 
