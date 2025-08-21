@@ -9,8 +9,8 @@ import jakarta.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@WebSocket(path = "weather-ai-service")
-public class WeatherAiServiceWebSocket {
+@WebSocket(path = "imperative/weather-ai")
+public class WeatherAiImperativeWebSocket {
   @Inject @WeatherBlockingAiService BlockingAiService weatherBlockingAiService;
 
   @OnOpen

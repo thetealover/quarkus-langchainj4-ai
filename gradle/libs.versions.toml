@@ -28,6 +28,7 @@ quarkusMcpClientSse = { module = "io.quarkiverse.mcp:quarkus-mcp-server-sse-clie
 quarkusMcp = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-mcp", version.ref = "quarkusMcpVersion" }
 quarkusLangchain4jOllama = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-ollama", version.ref = "quarkusLangchain4jOllamaVersion" }
 quarkusLangchain4jCore = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-core", version.ref = "quarkusLangchain4jCoreVersion" }
+quarkusSmallryeFaultTolerance = { module = "io.quarkus:quarkus-smallrye-fault-tolerance" }
 langchain4j = { module = "dev.langchain4j:langchain4j", version.ref = "langchain4jVersion" }
 langchain4jPgVector = { module = "dev.langchain4j:langchain4j-pgvector", version.ref = "langchain4jPgVectorVersion" }
 quarkusLangchain4jPgVector = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-pgvector", version.ref = "quarkusLangchain4jPgVectorVersion" }

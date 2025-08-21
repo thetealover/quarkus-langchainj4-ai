@@ -24,8 +24,9 @@ dependencies {
     implementation(libs.quarkusLangchain4jOllama)
     implementation(libs.quarkusMcp)
     implementation(libs.quarkusMcpClientSse)
-    implementation(libs.langchain4j)
     implementation(libs.quarkusLangchain4jCore)
+    implementation(libs.quarkusSmallryeFaultTolerance)
+    implementation(libs.langchain4j)
 //    implementation(libs.langchain4jPgVector)
 //    implementation(libs.quarkusLangchain4jPgVector)
 
@@ -35,8 +36,6 @@ dependencies {
 
     testImplementation(libs.quarkusJunit5)
     testImplementation(libs.quarkusRestAssured)
-    implementation 'com.squareup.okhttp3:okhttp:5.1.0'
-    implementation 'com.squareup.okhttp3:okhttp-sse:5.1.0'
 }
 
 quarkus {

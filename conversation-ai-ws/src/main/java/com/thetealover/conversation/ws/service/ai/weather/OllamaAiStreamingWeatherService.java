@@ -1,17 +1,14 @@
 package com.thetealover.conversation.ws.service.ai.weather;
 
-import static java.time.temporal.ChronoUnit.SECONDS;
-
-import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
 import io.quarkiverse.langchain4j.mcp.runtime.McpToolBox;
+import io.smallrye.mutiny.Multi;
 import jakarta.enterprise.context.SessionScoped;
-import org.eclipse.microprofile.faulttolerance.Fallback;
-import org.eclipse.microprofile.faulttolerance.Timeout;
 
 @SessionScoped
+@RegisterAiService
 @SystemMessage(
     """
 # CRITICAL RULE
@@ -58,18 +55,10 @@ Your job is to provide weather information and clothing recommendations. You wil
 * Irrelevant Questions:** If the user asks an unrelated question, respond using **TEMPLATE B** to politely guide them back to your purpose.
 
 # FINAL REMINDER
-Remember the CRITICAL RULE. Every single response must start with either `**Source: Latest Fetched Data**` or `**Source: General Knowledge**` - EXCEPT greeting responses.
+Remember the CRITICAL RULE. Every single response must start with either `**Source: Latest Fetched Data**` or `**Source: General Knowledge**`.
 """)
-@RegisterAiService
-public interface OllamaAiWeatherService {
-
+public interface OllamaAiStreamingWeatherService {
   @McpToolBox
   @UserMessage("{message}")
-  @Timeout(value = 30, unit = SECONDS)
-  @Fallback(fallbackMethod = "fallback")
-  String chat(@MemoryId final String sessionId, final String message);
-
-  default String fallback(final String sessionId, final String message) {
-    return "I'm sorry, I couldn't process your request at the moment. Please try again later or check your input.";
-  }
+  Multi<String> chat(final String message);
 }

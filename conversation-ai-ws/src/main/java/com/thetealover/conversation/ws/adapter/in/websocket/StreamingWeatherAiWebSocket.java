@@ -1,20 +1,18 @@
 package com.thetealover.conversation.ws.adapter.in.websocket;
 
-import com.thetealover.conversation.ws.service.ai.weather.OllamaAiWeatherService;
+import com.thetealover.conversation.ws.service.ai.weather.OllamaAiStreamingWeatherService;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
-import io.quarkus.websockets.next.OnOpen;
-import io.quarkus.websockets.next.OnTextMessage;
-import io.quarkus.websockets.next.WebSocket;
-import io.quarkus.websockets.next.WebSocketConnection;
+import io.quarkus.websockets.next.*;
+import io.smallrye.mutiny.Multi;
 import jakarta.inject.Inject;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@WebSocket(path = "weather-ai")
-public class WeatherAiWebSocket {
-  @Inject OllamaAiWeatherService ollamaAiWeatherService;
+@WebSocket(path = "streaming/weather-ai")
+public class StreamingWeatherAiWebSocket {
+  @Inject OllamaAiStreamingWeatherService ollamaAiWeatherService;
   @Inject ChatMemoryStore memoryStore;
 
   @OnOpen
@@ -23,7 +21,7 @@ public class WeatherAiWebSocket {
   }
 
   @OnTextMessage
-  public String onTextMessage(final String message, final WebSocketConnection connection) {
+  public Multi<String> onTextMessage(final String message, final WebSocketConnection connection) {
     final String connectionId = connection.id();
     log.info("Received message: {}. Connection ID: {}", message, connectionId);
 
@@ -31,6 +29,6 @@ public class WeatherAiWebSocket {
     log.info(
         "Total messages count in memory for Connection ID {}: {}", connectionId, messages.size());
 
-    return ollamaAiWeatherService.chat(connectionId, message);
+    return ollamaAiWeatherService.chat(message);
   }
 }
