@@ -1,4 +1,4 @@
-package com.thetealover.conversation.ws.config;
+package com.thetealover.conversation.ws.config.serde;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;

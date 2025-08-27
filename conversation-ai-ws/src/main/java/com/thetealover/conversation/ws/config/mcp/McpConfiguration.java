@@ -28,7 +28,7 @@ public class McpConfiguration {
   public ToolProvider weatherMcpToolProvider() {
     return McpToolProvider.builder()
         .mcpClients(weatherMcpClient())
-        .filterToolNames("get the current weather for a city")
+        .filterToolNames("get_current_weather")
         .build();
   }
 

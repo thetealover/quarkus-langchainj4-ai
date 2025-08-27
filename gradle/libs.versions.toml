@@ -5,7 +5,7 @@ quarkusLangchain4jOllamaVersion = '1.1.1'
 quarkusMcpServerSseVersion = '1.4.1'
 quarkusMcpClientSseVersion = '1.4.1'
 quarkusMcpVersion = '1.1.1'
-quarkusLangchain4jCoreVersion = '1.1.1'
+quarkusLangchain4jCoreVersion = '1.1.2'
 langchain4jPgVectorVersion = '0.36.2'
 quarkusLangchain4jPgVectorVersion = '1.1.0'
 spotlessVersion = '6.23.3'
@@ -19,6 +19,7 @@ assertjCoreVersion = '3.27.3'
 [libraries]
 quarkusRest = { module = "io.quarkus:quarkus-rest" }
 quarkusArc = { module = "io.quarkus:quarkus-arc" }
+quarkusRedisClient = { module = "io.quarkus:quarkus-redis-client" }
 quarkusWebSockets = { module = "io.quarkus:quarkus-websockets-next" }
 quarkusRestJackson = { module = "io.quarkus:quarkus-rest-jackson" }
 quarkusRestClientJackson = { module = "io.quarkus:quarkus-rest-client-jackson" }

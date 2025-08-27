@@ -1,4 +1,4 @@
-package com.thetealover.conversation.ws.service.common;
+package com.thetealover.conversation.ws.service.ai.common;
 
 import dev.langchain4j.service.TokenStream;
 

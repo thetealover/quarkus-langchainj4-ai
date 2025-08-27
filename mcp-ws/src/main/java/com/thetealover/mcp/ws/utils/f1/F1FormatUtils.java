@@ -1,29 +1,30 @@
 package com.thetealover.mcp.ws.utils.f1;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thetealover.mcp.ws.adapter.out.client.f1.model.DriverDto;
-import io.quarkus.qute.Qute;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @ApplicationScoped
 public class F1FormatUtils {
+  @Inject ObjectMapper objectMapper;
 
-  public String formatDriversData(final List<DriverDto> drivers) {
-    return drivers.stream()
-        .map(
-            driver ->
-                Qute.fmt(
-                    """
-            Name: {d.name} {d.surname}
-            Nationality: {d.nationality}
-            Birthday: {d.birthday}
-            Number: {d.number}
-            Short Name: {d.shortName}
-            Wikipedia URL: {d.url}
-            """,
-                    Map.of("d", driver)))
-        .collect(Collectors.joining("---\n"));
+  public String formatDriversData(final List<DriverDto> data) {
+    try {
+      return objectMapper.writeValueAsString(data);
+    } catch (JsonProcessingException e) {
+      log.error("Error formatting drivers data", e);
+      return """
+                {
+                    "error": "Failed to process drivers data",
+                    "message": "%s"
+                }
+            """
+          .formatted(e.getMessage());
+    }
   }
 }

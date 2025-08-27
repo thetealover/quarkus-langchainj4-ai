@@ -19,6 +19,7 @@ dependencies {
     implementation enforcedPlatform("${quarkusPlatformGroupId}:${quarkusPlatformArtifactId}:${quarkusPlatformVersion}")
     implementation(libs.quarkusArc)
     implementation(libs.quarkusRest)
+    implementation(libs.quarkusRedisClient)
     implementation(libs.quarkusWebSockets)
     implementation(libs.quarkusRestJackson)
     implementation(libs.quarkusLangchain4jOllama)

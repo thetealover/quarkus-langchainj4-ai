@@ -24,12 +24,15 @@ public class F1Tools {
   private final ObjectMapper objectMapper;
   private final F1FormatUtils f1FormatUtils;
 
-  @Tool(name = "search of F1 drivers", description = "Searches for F1 drivers")
+  @Tool(
+      name = "search_f1_drivers",
+      description =
+          "Searches for Formula 1 drivers by their name and returns a list of matching drivers.")
   public String searchF1Drivers(
       @ToolArg(
-              name = "F1 driver search query argument",
-              description = "name or surname of an F1 driver",
-              defaultValue = " ")
+              name = "query",
+              description =
+                  "The name or surname of the F1 driver to search for, e.g., 'Hamilton' or 'Max'.")
           final String query)
       throws JsonProcessingException {
     final JsonObject response = f1ApiClient.searchForDrivers(query);
@@ -37,7 +40,6 @@ public class F1Tools {
         objectMapper.readValue(response.get(DRIVERS_JSON_KEY).toString(), new TypeReference<>() {});
 
     log.info("Tool call: provided a list of F1 drivers. Total size: {}", drivers.size());
-
     return f1FormatUtils.formatDriversData(drivers);
   }
 }

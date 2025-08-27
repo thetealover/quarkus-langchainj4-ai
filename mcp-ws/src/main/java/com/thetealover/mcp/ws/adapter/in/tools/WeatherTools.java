@@ -19,10 +19,15 @@ public class WeatherTools {
   private final WeatherFormatUtils weatherFormatUtils;
 
   @Tool(
-      name = "get the current weather for a city",
-      description = "gets the current weather information for a city")
+      name = "get_current_weather",
+      description =
+          "Fetches real-time weather data for a specified city, including temperature, conditions, and wind speed.")
   public String getCurrentWeather(
-      @ToolArg(name = "city", description = "the name of the city", defaultValue = "London")
+      @ToolArg(
+              name = "city",
+              description =
+                  "The name of the city for which to get the weather, e.g., 'Paris', 'Tokyo'.",
+              defaultValue = "London")
           final String location) {
     final WeatherDto currentWeather =
         weatherApiV1Client.getCurrentWeather(location, properties.weatherApiKey());
