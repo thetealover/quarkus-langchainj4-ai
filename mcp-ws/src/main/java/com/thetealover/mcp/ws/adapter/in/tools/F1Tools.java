@@ -39,7 +39,7 @@ public class F1Tools {
     final List<DriverDto> drivers =
         objectMapper.readValue(response.get(DRIVERS_JSON_KEY).toString(), new TypeReference<>() {});
 
-    log.info("Tool call: provided a list of F1 drivers. Total size: {}", drivers.size());
+    log.info("Tool call: searched for F1 drivers. Total size: {}", drivers.size());
     return f1FormatUtils.formatDriversData(drivers);
   }
 }

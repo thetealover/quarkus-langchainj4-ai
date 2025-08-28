@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",          // Modern JavaScript standard
+    "module": "ES2020",         // Use modern modules
+    "outDir": "./dist",         // Output directory for compiled JS
+    "rootDir": "./src",         // Input directory for TS source
+    "strict": true,             // Enable strict type-checking
+    "esModuleInterop": true
+  }
+}
+
