@@ -10,12 +10,12 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
-      labels:
-        - "dependencies"
-        - "automerge"
-        - "gradle"
-        - "java"
       timezone: Asia/Yerevan
       time: "10:00"
     assignees:
       - "thetealover"
+    labels:
+      - "dependencies"
+      - "automerge"
+      - "gradle"
+      - "java"
