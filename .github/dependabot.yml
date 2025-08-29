@@ -5,8 +5,17 @@
 
 version: 2
 updates:
-  # Enable version updates for gradle
+  # Enable version updates for Gradle projects
   - package-ecosystem: "gradle"
-    # Check the gradle registry for updates every day (weekdays)
+    directory: "/"
     schedule:
       interval: "daily"
+      labels:
+        - "dependencies"
+        - "automerge"
+        - "gradle"
+        - "java"
+      assignees:
+        - "thetealover"
+      timezone: Asia/Yerevan
+      time: "10:00"
