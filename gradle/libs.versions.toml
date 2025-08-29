@@ -17,7 +17,7 @@ jandexPluginVersion = '2.2.0'
 smallryeJandexVersion = '3.4.0'
 hibernateValidatorVersion = '9.0.1.Final'
 
-assertjCoreVersion = '3.27.3'
+assertjCoreVersion = '3.27.4'
 
 [libraries]
 quarkusRest = { module = "io.quarkus:quarkus-rest" }
