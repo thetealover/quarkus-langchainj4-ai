@@ -8,6 +8,7 @@ Quarkus Application using LangChain4j AI to interact with Ollama local running m
 - Docker
 - Ollama
     - Ollama AI model `llama3-groq-tool-use`
+- NPM (Optional for chatbot-ui compilation)
 
 ## Packaging and running the application
 

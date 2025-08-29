@@ -4,25 +4,25 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.thetealover.mcp.ws.adapter.out.client.f1.F1ApiClient;
-import com.thetealover.mcp.ws.adapter.out.client.f1.model.DriverDto;
+import com.thetealover.mcp.ws.adapter.out.client.f1.model.F1DriverDto;
+import com.thetealover.mcp.ws.config.qualifier.ReadingObjectMapper;
 import com.thetealover.mcp.ws.utils.f1.F1FormatUtils;
 import io.quarkiverse.mcp.server.Tool;
 import io.quarkiverse.mcp.server.ToolArg;
+import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import jakarta.json.JsonObject;
 import java.util.List;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Singleton
-@RequiredArgsConstructor
 public class F1Tools {
   private static final String DRIVERS_JSON_KEY = "drivers";
 
-  private final F1ApiClient f1ApiClient;
-  private final ObjectMapper objectMapper;
-  private final F1FormatUtils f1FormatUtils;
+  @Inject F1ApiClient f1ApiClient;
+  @Inject F1FormatUtils f1FormatUtils;
+  @ReadingObjectMapper @Inject ObjectMapper readingObjectMapper;
 
   @Tool(
       name = "search_f1_drivers",
@@ -36,8 +36,9 @@ public class F1Tools {
           final String query)
       throws JsonProcessingException {
     final JsonObject response = f1ApiClient.searchForDrivers(query);
-    final List<DriverDto> drivers =
-        objectMapper.readValue(response.get(DRIVERS_JSON_KEY).toString(), new TypeReference<>() {});
+    final List<F1DriverDto> drivers =
+        readingObjectMapper.readValue(
+            response.get(DRIVERS_JSON_KEY).toString(), new TypeReference<>() {});
 
     log.info("Tool call: searched for F1 drivers. Total size: {}", drivers.size());
     return f1FormatUtils.formatDriversData(drivers);

@@ -9,7 +9,7 @@ import lombok.*;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-public class DriverDto {
+public class F1DriverDto {
   private String driverId;
   private String name;
   private String surname;

@@ -22,11 +22,16 @@ dependencies {
     implementation(libs.quarkusRedisClient)
     implementation(libs.quarkusWebSockets)
     implementation(libs.quarkusRestJackson)
+    implementation(libs.quarkusSmallryeFaultTolerance)
+
+    implementation(libs.quarkusMicrometerOtlp)
+    implementation(libs.quarkusOpenTelemetry)
+    implementation(libs.quarkusObservabilityDevservicesLgtm)
+
     implementation(libs.quarkusLangchain4jOllama)
     implementation(libs.quarkusMcp)
     implementation(libs.quarkusMcpClientSse)
     implementation(libs.quarkusLangchain4jCore)
-    implementation(libs.quarkusSmallryeFaultTolerance)
     implementation(libs.langchain4j)
 //    implementation(libs.langchain4jPgVector)
 //    implementation(libs.quarkusLangchain4jPgVector)

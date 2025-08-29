@@ -22,6 +22,10 @@ dependencies {
     implementation(libs.quarkusQuteWeb)
     implementation(libs.quarkusMcpServerSse)
 
+    implementation(libs.quarkusMicrometerOtlp)
+    implementation(libs.quarkusOpenTelemetry)
+    implementation(libs.quarkusObservabilityDevservicesLgtm)
+
     implementation(libs.lombok)
     annotationProcessor(libs.lombok)
 
