@@ -1,5 +1,5 @@
 [versions]
-langchain4jVersion = '1.3.0'
+langchain4jVersion = '1.4.0'
 lombokVersion = '1.18.38'
 quarkusLangchain4jOllamaVersion = '1.1.1'
 quarkusMicrometerOtlpVersion = '3.3.1'
