@@ -1,7 +1,7 @@
 [versions]
 langchain4jVersion = '1.4.0'
 lombokVersion = '1.18.38'
-quarkusLangchain4jOllamaVersion = '1.1.1'
+quarkusLangchain4jOllamaVersion = '1.1.3'
 quarkusMicrometerOtlpVersion = '3.3.1'
 quarkusOpenTelemetryVersion = '3.26.0'
 quarkusObservabilityDevservicesLgtm = 'quarkus-opentelemetry'
