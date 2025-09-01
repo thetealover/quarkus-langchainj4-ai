@@ -3,6 +3,7 @@ package com.thetealover.conversation.ws.service.ai.weather.guardrail;
 import dev.langchain4j.data.message.AiMessage;
 import io.quarkiverse.langchain4j.guardrails.*;
 
+// todo enhance this and include in a service.
 public class WeatherInputGuardrail implements OutputGuardrail {
   @Override
   public OutputGuardrailResult validate(AiMessage responseFromLLM) {

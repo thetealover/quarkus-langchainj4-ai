@@ -9,13 +9,22 @@ updates:
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
       timezone: Asia/Yerevan
       time: "10:00"
     assignees:
       - "thetealover"
     labels:
       - "dependencies"
-      - "automerge"
-      - "gradle"
-      - "java"
+    groups:
+      minor-patch-updates:
+        patterns:
+          - "*" # Matches all dependencies
+        update-types:
+          - "minor"
+          - "patch"
+      major-updates:
+        patterns:
+          - "*" # Matches all dependencies
+        update-types:
+          - "major"
