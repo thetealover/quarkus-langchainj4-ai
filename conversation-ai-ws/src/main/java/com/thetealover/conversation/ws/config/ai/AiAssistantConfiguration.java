@@ -2,7 +2,7 @@ package com.thetealover.conversation.ws.config.ai;
 
 import com.thetealover.conversation.ws.config.ai.qualifier.CustomOllamaStreamingChatModel;
 import com.thetealover.conversation.ws.config.mcp.qualifier.WeatherMcpToolProvider;
-import com.thetealover.conversation.ws.service.ai.common.TokenStreamingAssistant;
+import com.thetealover.conversation.ws.service.ai.common.service.TokenStreamingAssistant;
 import dev.langchain4j.model.ollama.OllamaStreamingChatModel;
 import dev.langchain4j.service.AiServices;
 import dev.langchain4j.service.tool.ToolProvider;

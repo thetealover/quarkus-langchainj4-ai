@@ -2,10 +2,12 @@ package com.thetealover.conversation.ws.service.ai.weather;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
 
+import com.thetealover.conversation.ws.service.ai.common.guardrail.PromptInjectionGuard;
 import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
+import io.quarkiverse.langchain4j.guardrails.InputGuardrails;
 import io.quarkiverse.langchain4j.mcp.runtime.McpToolBox;
 import jakarta.enterprise.context.SessionScoped;
 import org.eclipse.microprofile.faulttolerance.Fallback;
@@ -53,6 +55,7 @@ public interface OllamaAiWeatherService {
   @UserMessage("{message}")
   @Timeout(value = 30, unit = SECONDS)
   @Fallback(fallbackMethod = "fallback")
+  @InputGuardrails(PromptInjectionGuard.class)
   String chat(@MemoryId final String sessionId, final String message);
 
   default String fallback(final String sessionId, final String message) {

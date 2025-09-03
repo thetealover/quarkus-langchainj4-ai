@@ -3,7 +3,7 @@ package com.thetealover.conversation.ws.config.ai;
 import com.thetealover.conversation.ws.config.ai.qualifier.WeatherBlockingAiService;
 import com.thetealover.conversation.ws.config.ai.qualifier.WeatherOllamaChatModel;
 import com.thetealover.conversation.ws.config.mcp.qualifier.WeatherMcpToolProvider;
-import com.thetealover.conversation.ws.service.ai.common.BlockingAiService;
+import com.thetealover.conversation.ws.service.ai.common.service.BlockingAiService;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
 import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.service.AiServices;

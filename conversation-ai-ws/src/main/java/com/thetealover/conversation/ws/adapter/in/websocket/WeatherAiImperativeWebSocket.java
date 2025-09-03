@@ -1,7 +1,7 @@
 package com.thetealover.conversation.ws.adapter.in.websocket;
 
 import com.thetealover.conversation.ws.config.ai.qualifier.WeatherBlockingAiService;
-import com.thetealover.conversation.ws.service.ai.common.BlockingAiService;
+import com.thetealover.conversation.ws.service.ai.common.service.BlockingAiService;
 import io.quarkus.websockets.next.OnOpen;
 import io.quarkus.websockets.next.OnTextMessage;
 import io.quarkus.websockets.next.WebSocket;
