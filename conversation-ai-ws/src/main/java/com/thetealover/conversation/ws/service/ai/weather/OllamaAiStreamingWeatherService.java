@@ -5,9 +5,8 @@ import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
 import io.quarkiverse.langchain4j.mcp.runtime.McpToolBox;
 import io.smallrye.mutiny.Multi;
-import jakarta.enterprise.context.SessionScoped;
 
-@SessionScoped
+// @RequestScoped
 @RegisterAiService
 @SystemMessage(
     """

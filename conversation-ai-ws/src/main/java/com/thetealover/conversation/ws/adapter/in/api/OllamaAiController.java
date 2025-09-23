@@ -6,6 +6,8 @@ import com.thetealover.conversation.ws.adapter.in.api.model.AiRequestDto;
 import com.thetealover.conversation.ws.adapter.in.api.model.AiResponseDto;
 import com.thetealover.conversation.ws.service.ai.OllamaF1Service;
 import com.thetealover.conversation.ws.service.ai.OllamaGeneralService;
+import com.thetealover.conversation.ws.service.ai.weather.OllamaAiStreamingWeatherService;
+import io.smallrye.mutiny.Multi;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
@@ -17,6 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Path("/ollama")
 @RequiredArgsConstructor
 public class OllamaAiController {
+  private final OllamaAiStreamingWeatherService ollamaAiWeatherService;
   private final OllamaGeneralService generalAiService;
   private final OllamaF1Service f1AiService;
 
@@ -56,5 +59,13 @@ public class OllamaAiController {
 
     log.info("Responding with: {}", response);
     return response;
+  }
+
+  @POST
+  @Path("stream/weather")
+  public Multi<String> askForWeather(@Valid @NotNull final AiRequestDto request) {
+    log.info("Received request: {}", request);
+
+    return ollamaAiWeatherService.chat(request.getMessage());
   }
 }

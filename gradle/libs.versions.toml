@@ -15,6 +15,7 @@ googleJavaFormatVersion = '1.19.1'
 jandexPluginVersion = '2.2.0'
 smallryeJandexVersion = '3.5.0'
 hibernateValidatorVersion = '9.0.1.Final'
+jedisVersion = '6.2.0'
 
 assertjCoreVersion = '3.27.5'
 
@@ -39,6 +40,7 @@ langchain4j = { module = "dev.langchain4j:langchain4j", version.ref = "langchain
 langchain4jPgVector = { module = "dev.langchain4j:langchain4j-pgvector", version.ref = "langchain4jPgVectorVersion" }
 quarkusLangchain4jPgVector = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-pgvector", version.ref = "quarkusLangchain4jPgVectorVersion" }
 
+jedis = { module = "redis.clients:jedis", version.ref = "jedisVersion" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombokVersion" }
 hibernateValidator = { module = "org.hibernate.validator:hibernate-validator", version.ref = "hibernateValidatorVersion" }
 

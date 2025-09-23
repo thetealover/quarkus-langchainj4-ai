@@ -33,6 +33,8 @@ dependencies {
     implementation(libs.quarkusMcpClientSse)
     implementation(libs.quarkusLangchain4jCore)
     implementation(libs.langchain4j)
+
+    implementation(libs.jedis)
 //    implementation(libs.langchain4jPgVector)
 //    implementation(libs.quarkusLangchain4jPgVector)
 

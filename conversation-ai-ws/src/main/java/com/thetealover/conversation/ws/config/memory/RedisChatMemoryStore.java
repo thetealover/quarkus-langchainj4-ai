@@ -1,44 +1,49 @@
 package com.thetealover.conversation.ws.config.memory;
 
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.thetealover.conversation.ws.config.serde.CustomChatMessageCodec;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
-import io.quarkus.redis.datasource.RedisDataSource;
-import io.quarkus.redis.datasource.keys.KeyCommands;
-import io.quarkus.redis.datasource.value.ValueCommands;
+import jakarta.annotation.PreDestroy;
 import jakarta.enterprise.context.ApplicationScoped;
+import java.net.URI;
 import java.util.Collections;
 import java.util.List;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+import redis.clients.jedis.JedisPoolConfig;
 
 @ApplicationScoped
 public class RedisChatMemoryStore implements ChatMemoryStore {
   private final CustomChatMessageCodec chatMessageCodec;
-
-  private final ValueCommands<String, String> valueCommands;
-  private final KeyCommands<String> keyCommands;
+  private final JedisPool jedisPool;
 
   public RedisChatMemoryStore(
-      final CustomChatMessageCodec chatMessageCodec, final RedisDataSource redisDataSource) {
+      @ConfigProperty(name = "quarkus.redis.hosts") final URI redisUri,
+      final CustomChatMessageCodec chatMessageCodec) {
+    // Manually create a Jedis connection pool - not managed by  Quarkus's reactive engine
+    this.jedisPool = new JedisPool(new JedisPoolConfig(), redisUri);
     this.chatMessageCodec = chatMessageCodec;
-    this.valueCommands = redisDataSource.value(new TypeReference<>() {});
-    this.keyCommands = redisDataSource.key(String.class);
   }
 
   @Override
   public void deleteMessages(final Object memoryId) {
-    // Remove all messages associated with the memoryId
-    // This is called when the exchange ends or the memory is no longer needed, like when the scope
-    // is terminated.
-    keyCommands.del(memoryId.toString());
+    try (Jedis jedis = jedisPool.getResource()) {
+      jedis.del(memoryId.toString());
+    }
   }
 
   @Override
   public List<ChatMessage> getMessages(final Object memoryId) {
-    // Retrieve messages associated with the memoryId
-    final String commands = valueCommands.get(memoryId.toString());
+    String commands;
+    try (Jedis jedis = jedisPool.getResource()) {
+      // Jedis won't throw an exception on a blocking network call.
+      commands = jedis.get(memoryId.toString());
+    }
+
     if (isNull(commands) || commands.isEmpty()) {
       return Collections.emptyList();
     }
@@ -47,7 +52,17 @@ public class RedisChatMemoryStore implements ChatMemoryStore {
 
   @Override
   public void updateMessages(final Object memoryId, final List<ChatMessage> messages) {
-    // Store messages associated with the memoryId
-    valueCommands.set(memoryId.toString(), chatMessageCodec.messagesToJson(messages));
+    final String jsonPayload = chatMessageCodec.messagesToJson(messages);
+    try (Jedis jedis = jedisPool.getResource()) {
+      jedis.set(memoryId.toString(), jsonPayload);
+    }
+  }
+
+  @PreDestroy
+  public void cleanUp() {
+    // Ensuring the pool is closed on shutdown
+    if (nonNull(jedisPool)) {
+      jedisPool.close();
+    }
   }
 }
