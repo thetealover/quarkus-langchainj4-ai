@@ -1,9 +1,9 @@
 package com.thetealover.conversation.ws.config.mcp;
 
-import static java.time.temporal.ChronoUnit.SECONDS;
+import static com.thetealover.conversation.ws.config.properties.McpConfigurationPropertiesProvider.getMcpConfigurationProperties;
 
 import com.thetealover.conversation.ws.config.mcp.qualifier.WeatherMcpToolProvider;
-import com.thetealover.conversation.ws.config.properties.McpConfigurationProperties;
+import com.thetealover.conversation.ws.config.properties.McpConfigurationPropertiesProvider.McpConfigurationProperties;
 import dev.langchain4j.mcp.McpToolProvider;
 import dev.langchain4j.mcp.client.DefaultMcpClient;
 import dev.langchain4j.mcp.client.McpClient;
@@ -12,7 +12,6 @@ import dev.langchain4j.service.tool.ToolProvider;
 import io.quarkiverse.langchain4j.mcp.runtime.http.QuarkusHttpMcpTransport;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.Produces;
-import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 import java.time.Duration;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @Singleton
 public class McpConfiguration {
-  @Inject McpConfigurationProperties properties;
 
   @Produces
   @ApplicationScoped
@@ -33,13 +31,14 @@ public class McpConfiguration {
   }
 
   private McpTransport mcpTransport() {
-    final String baseUrl = properties.baseUrl();
-    final Boolean logRequests = properties.logRequests();
-    final Boolean logResponses = properties.logResponses();
-    final Long timeoutInSeconds = properties.timeoutInSeconds();
+    final McpConfigurationProperties mcpProperties = getMcpConfigurationProperties();
+    final String baseUrl = mcpProperties.getBaseUrl();
+    final Boolean logRequests = mcpProperties.getLogRequests();
+    final Boolean logResponses = mcpProperties.getLogResponses();
+    final Duration timeoutInSeconds = mcpProperties.getTimeoutInSeconds();
 
     log.info(
-        "Initializing MCP transport: Base SSE URL={}, timout in seconds={}, log requests={}, log responses={},",
+        "Initializing MCP transport: Base SSE URL={}, timeout in seconds={}, log requests={}, log responses={},",
         baseUrl,
         timeoutInSeconds,
         logRequests,
@@ -49,7 +48,7 @@ public class McpConfiguration {
         .sseUrl(baseUrl)
         .logRequests(logRequests)
         .logResponses(logResponses)
-        .timeout(Duration.of(timeoutInSeconds, SECONDS))
+        .timeout(timeoutInSeconds)
         .build();
   }
 

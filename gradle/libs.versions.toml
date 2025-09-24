@@ -1,13 +1,13 @@
 [versions]
 langchain4jVersion = '1.5.0'
 lombokVersion = '1.18.42'
-quarkusLangchain4jOllamaVersion = '1.1.4'
 quarkusMicrometerOtlpVersion = '3.4.1'
 quarkusOpenTelemetryVersion = '3.28.0'
 quarkusMcpServerSseVersion = '1.5.3'
 quarkusMcpClientSseVersion = '1.5.3'
 quarkusLangchain4jCoreVersion = '1.1.4'
 quarkusLangchain4jPgVectorVersion = '1.1.4'
+langchain4jAgenticVersion = '1.5.0-beta11'
 quarkusMcpVersion = '1.1.4'
 langchain4jPgVectorVersion = '0.36.2'
 spotlessVersion = '6.23.3'
@@ -16,6 +16,11 @@ jandexPluginVersion = '2.2.0'
 smallryeJandexVersion = '3.5.0'
 hibernateValidatorVersion = '9.0.1.Final'
 jedisVersion = '6.2.0'
+
+quarkusLangchain4jOllamaVersion = '1.1.4'
+quarkusLangchain4jAnthropicRuntimeVersion = '1.2.0'
+quarkusLangchain4jAnthropicDeploymentVersion = '1.2.0'
+
 
 assertjCoreVersion = '3.27.5'
 
@@ -33,10 +38,15 @@ quarkusObservabilityDevservicesLgtm = { module = "io.quarkus:quarkus-observabili
 quarkusMcpServerSse = { module = "io.quarkiverse.mcp:quarkus-mcp-server-sse", version.ref = "quarkusMcpServerSseVersion" }
 quarkusMcpClientSse = { module = "io.quarkiverse.mcp:quarkus-mcp-server-sse-client", version.ref = "quarkusMcpClientSseVersion" }
 quarkusMcp = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-mcp", version.ref = "quarkusMcpVersion" }
+
 quarkusLangchain4jOllama = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-ollama", version.ref = "quarkusLangchain4jOllamaVersion" }
+quarkusLangchain4jAnthropicRuntime = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-anthropic", version.ref = "quarkusLangchain4jAnthropicRuntimeVersion" }
+quarkusLangchain4jAnthropicDeployment = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-anthropic-deployment", version.ref = "quarkusLangchain4jAnthropicDeploymentVersion" }
+
 quarkusLangchain4jCore = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-core", version.ref = "quarkusLangchain4jCoreVersion" }
 quarkusSmallryeFaultTolerance = { module = "io.quarkus:quarkus-smallrye-fault-tolerance" }
 langchain4j = { module = "dev.langchain4j:langchain4j", version.ref = "langchain4jVersion" }
+langchain4jAgentic = { module = "dev.langchain4j:langchain4j-agentic", version.ref = "langchain4jAgenticVersion" }
 langchain4jPgVector = { module = "dev.langchain4j:langchain4j-pgvector", version.ref = "langchain4jPgVectorVersion" }
 quarkusLangchain4jPgVector = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-pgvector", version.ref = "quarkusLangchain4jPgVectorVersion" }
 

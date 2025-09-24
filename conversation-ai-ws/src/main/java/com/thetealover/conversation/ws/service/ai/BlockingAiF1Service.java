@@ -1,11 +1,12 @@
 package com.thetealover.conversation.ws.service.ai;
 
+import com.thetealover.conversation.ws.service.ai.common.modelsupplier.ollama.OllamaBlockingLlmSupplier;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
 import io.quarkiverse.langchain4j.mcp.runtime.McpToolBox;
+import jakarta.enterprise.context.RequestScoped;
 
-@RegisterAiService
 @SystemMessage(
     """
         You're an F1 expert. Your job is to provide answers and ignite the user's curiosity about F1.
@@ -14,7 +15,9 @@ import io.quarkiverse.langchain4j.mcp.runtime.McpToolBox;
         Keep your answers concise and relevant, but not more than necessary.
         If you don't know the answer, say that you don't know it.
     """)
-public interface OllamaF1Service {
+@RequestScoped
+@RegisterAiService(chatLanguageModelSupplier = OllamaBlockingLlmSupplier.class)
+public interface BlockingAiF1Service {
 
   @McpToolBox
   @SystemMessage(

@@ -1,11 +1,11 @@
 package com.thetealover.conversation.ws.service.ai;
 
+import com.thetealover.conversation.ws.service.ai.common.modelsupplier.ollama.OllamaBlockingLlmSupplier;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.RequestScoped;
 
-@RegisterAiService
 @SystemMessage(
     """
         You're a general-purpose AI assistant. Your job is to provide answers to user questions.
@@ -14,8 +14,9 @@ import jakarta.enterprise.context.ApplicationScoped;
         Keep your answers concise and relevant, but not more than necessary.
         If you don't know the answer, say that you don't know it.
     """)
-@ApplicationScoped
-public interface OllamaGeneralService {
+@RequestScoped
+@RegisterAiService(chatLanguageModelSupplier = OllamaBlockingLlmSupplier.class)
+public interface BlockingAiGeneralService {
 
   @UserMessage("I got a request, {message}.")
   String askQuestion(String message);

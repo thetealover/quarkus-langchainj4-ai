@@ -1,6 +1,6 @@
 package com.thetealover.conversation.ws.adapter.in.websocket;
 
-import com.thetealover.conversation.ws.service.ai.weather.OllamaAiStreamingWeatherService;
+import com.thetealover.conversation.ws.service.ai.imperative.StreamingAiWeatherService;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
 import io.quarkus.websockets.next.*;
@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @WebSocket(path = "streaming/weather-ai")
 public class StreamingWeatherAiWebSocket {
-  @Inject OllamaAiStreamingWeatherService ollamaAiWeatherService;
+  @Inject StreamingAiWeatherService streamingAiWeatherService;
   @Inject ChatMemoryStore memoryStore;
 
   @OnOpen
@@ -29,6 +29,6 @@ public class StreamingWeatherAiWebSocket {
     log.info(
         "Total messages count in memory for Connection ID {}: {}", connectionId, messages.size());
 
-    return ollamaAiWeatherService.chat(message);
+    return streamingAiWeatherService.chat(message);
   }
 }

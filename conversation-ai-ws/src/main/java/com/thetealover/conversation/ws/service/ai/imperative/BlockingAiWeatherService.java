@@ -1,13 +1,12 @@
-package com.thetealover.conversation.ws.service.ai.weather;
+package com.thetealover.conversation.ws.service.ai.imperative;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
 
-import com.thetealover.conversation.ws.service.ai.common.guardrail.PromptInjectionGuard;
+import com.thetealover.conversation.ws.service.ai.common.modelsupplier.ollama.OllamaBlockingLlmSupplier;
 import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;
-import io.quarkiverse.langchain4j.guardrails.InputGuardrails;
 import io.quarkiverse.langchain4j.mcp.runtime.McpToolBox;
 import jakarta.enterprise.context.SessionScoped;
 import org.eclipse.microprofile.faulttolerance.Fallback;
@@ -48,14 +47,13 @@ When the tool returns data, your response MUST be structured exactly like this:
 3.  **If the user provides an AMBIGUOUS city name** (e.g., "Springfield"): Ask for clarification: "There are several cities named Springfield! Could you please specify the state or country for me?"
 4.  **If the user asks an IRRELEVANT question:** Politely redirect: "My expertise is in real-time weather forecasts. Is there a city you'd like to check?"
 """)
-@RegisterAiService
-public interface OllamaAiWeatherService {
+@RegisterAiService(chatLanguageModelSupplier = OllamaBlockingLlmSupplier.class)
+public interface BlockingAiWeatherService {
 
   @McpToolBox
   @UserMessage("{message}")
   @Timeout(value = 30, unit = SECONDS)
   @Fallback(fallbackMethod = "fallback")
-  @InputGuardrails(PromptInjectionGuard.class)
   String chat(@MemoryId final String sessionId, final String message);
 
   default String fallback(final String sessionId, final String message) {

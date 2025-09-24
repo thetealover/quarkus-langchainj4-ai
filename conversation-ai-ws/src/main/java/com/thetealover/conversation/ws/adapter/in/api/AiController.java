@@ -4,9 +4,9 @@ import static java.time.temporal.ChronoUnit.MILLIS;
 
 import com.thetealover.conversation.ws.adapter.in.api.model.AiRequestDto;
 import com.thetealover.conversation.ws.adapter.in.api.model.AiResponseDto;
-import com.thetealover.conversation.ws.service.ai.OllamaF1Service;
-import com.thetealover.conversation.ws.service.ai.OllamaGeneralService;
-import com.thetealover.conversation.ws.service.ai.weather.OllamaAiStreamingWeatherService;
+import com.thetealover.conversation.ws.service.ai.BlockingAiF1Service;
+import com.thetealover.conversation.ws.service.ai.BlockingAiGeneralService;
+import com.thetealover.conversation.ws.service.ai.imperative.StreamingAiWeatherService;
 import io.smallrye.mutiny.Multi;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -16,20 +16,20 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Path("/ollama")
+@Path("/ai")
 @RequiredArgsConstructor
-public class OllamaAiController {
-  private final OllamaAiStreamingWeatherService ollamaAiWeatherService;
-  private final OllamaGeneralService generalAiService;
-  private final OllamaF1Service f1AiService;
+public class AiController {
+  private final StreamingAiWeatherService ollamaAiWeatherService;
+  private final BlockingAiGeneralService blockingAiGeneralService;
+  private final BlockingAiF1Service blockingAiF1Service;
 
   @POST
-  @Path("general")
+  @Path("blocking/general")
   public AiResponseDto askQuestion(@Valid @NotNull final AiRequestDto request) {
     log.info("Received request: {}", request);
 
     final Instant start = Instant.now();
-    final String llmResponse = generalAiService.askQuestion(request.getMessage());
+    final String llmResponse = blockingAiGeneralService.askQuestion(request.getMessage());
     final Instant end = Instant.now();
 
     final AiResponseDto response =
@@ -43,12 +43,12 @@ public class OllamaAiController {
   }
 
   @POST
-  @Path("f1")
+  @Path("blocking/f1")
   public AiResponseDto askQuestionAboutF1(@Valid @NotNull final AiRequestDto request) {
     log.info("Received request: {}", request);
 
     final Instant start = Instant.now();
-    final String llmResponse = f1AiService.searchF1Drivers(request.getMessage());
+    final String llmResponse = blockingAiF1Service.searchF1Drivers(request.getMessage());
     final Instant end = Instant.now();
 
     final AiResponseDto response =
