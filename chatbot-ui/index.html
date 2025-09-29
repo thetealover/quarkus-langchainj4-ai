@@ -1,50 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebSocket Client</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        #messages-log {
-            border: 1px solid #ccc;
-            width: 500px;
-            height: 300px;
-            overflow-y: scroll;
-            padding: 10px;
-            margin-top: 10px;
-        }
-
-        .message {
-            margin-bottom: 5px;
-        }
-
-        .user-message {
-            color: blue;
-        }
-
-        .server-message {
-            color: green;
-        }
-    </style>
+    <meta charset="UTF-8"/>
+    <link rel="icon" type="image/svg+xml" href="/vite.svg"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>AI Chat UI</title>
 </head>
 <body>
-<h1>WebSocket Client</h1>
-<div>
-    <input type="text" id="websocket-url" placeholder="Enter the WebSocket URL" size="20">
-    <button id="websocket-connect-button">Connect</button>
-    <input type="text" id="message-input" placeholder="Type a message..." size="50">
-    <button id="send-button">Send</button>
-</div>
-<div id="messages-log"></div>
-
-<script src="dist/client.js" defer></script>
+<div id="root"></div>
+<script type="module" src="/src/main.tsx"></script>
 </body>
 </html>
-

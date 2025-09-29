@@ -1,4 +1,4 @@
-package com.thetealover.conversation.ws.service.ai.common.modelsupplier.claude;
+package com.thetealover.conversation.ws.config.ai.modelsupplier.claude;
 
 import static com.thetealover.conversation.ws.config.properties.AiConfigurationPropertiesProvider.getClaudeProperties;
 
@@ -23,5 +23,9 @@ public class ClaudeBlockingLlmSupplier implements Supplier<ChatModel> {
         .logRequests(claudeProperties.getLogRequests())
         .logResponses(claudeProperties.getLogResponses())
         .build();
+  }
+
+  public static ChatModel getAnthropicChatModel() {
+    return new ClaudeBlockingLlmSupplier().get();
   }
 }

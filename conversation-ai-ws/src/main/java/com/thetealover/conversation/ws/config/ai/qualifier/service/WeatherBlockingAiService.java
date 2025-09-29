@@ -1,4 +1,4 @@
-package com.thetealover.conversation.ws.config.ai.qualifier;
+package com.thetealover.conversation.ws.config.ai.qualifier.service;
 
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.ElementType.PARAMETER;

@@ -12,6 +12,7 @@ public class ConversationWsConfigurationPropertiesProvider {
 
     return ConversationWsConfigurationProperties.builder()
         .appVersion(config.getValue("ws.app-version", String.class))
+        .chatMemoryMaxMessages(config.getValue("ai.chat-memory.max-messages", Integer.class))
         .build();
   }
 
@@ -19,5 +20,6 @@ public class ConversationWsConfigurationPropertiesProvider {
   @Builder
   public static class ConversationWsConfigurationProperties {
     private String appVersion;
+    private Integer chatMemoryMaxMessages;
   }
 }

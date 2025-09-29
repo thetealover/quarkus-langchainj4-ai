@@ -2,8 +2,8 @@ package com.thetealover.conversation.ws.config.ai;
 
 import static com.thetealover.conversation.ws.config.properties.AiConfigurationPropertiesProvider.getLocalOllamaProperties;
 
-import com.thetealover.conversation.ws.config.ai.qualifier.CustomOllamaStreamingChatModel;
-import com.thetealover.conversation.ws.config.ai.qualifier.WeatherOllamaChatModel;
+import com.thetealover.conversation.ws.config.ai.qualifier.chatmodel.CustomOllamaStreamingChatModel;
+import com.thetealover.conversation.ws.config.ai.qualifier.chatmodel.WeatherOllamaChatModel;
 import com.thetealover.conversation.ws.config.properties.AiConfigurationPropertiesProvider.AiConfiguration;
 import dev.langchain4j.http.client.HttpClientBuilderLoader;
 import dev.langchain4j.model.chat.ChatModel;

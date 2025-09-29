@@ -40,13 +40,15 @@ Execute the following commands in seperate terminal sessions.
 
 ## Ease of use
 
-You can use the `chatbot-ui/index.html` to interact with the application's WebSocket endpoints.
-Just in case, the `chatbot-ui` can be built using the following commands:
+You can use the `chatbot-ui` ReactJS application to interact with the web services.
+
+To install the project:
 
 ```shell script
 npm install
 ```
 
+To run the application locally:
 ```shell script
-npx tsc
+npm run dev
 ```

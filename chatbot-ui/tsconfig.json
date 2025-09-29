@@ -1,11 +1,31 @@
 {
   "compilerOptions": {
-    "target": "ES2020",          // Modern JavaScript standard
-    "module": "ES2020",         // Use modern modules
-    "outDir": "./dist",         // Output directory for compiled JS
-    "rootDir": "./src",         // Input directory for TS source
-    "strict": true,             // Enable strict type-checking
-    "esModuleInterop": true
-  }
+    "target": "ES2021",
+    "useDefineForClassFields": true,
+    "lib": [
+      "ES2021",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": [
+    "src"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }
-
