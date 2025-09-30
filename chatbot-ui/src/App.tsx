@@ -141,8 +141,8 @@ function App() {
 
     return (
         <Container maxWidth="md" sx={{display: 'flex', flexDirection: 'column', height: '100vh', py: 2}}>
-            <Typography variant="h4" component="h1" align="center" gutterBottom>
-                AI Chat
+            <Typography fontFamily="sans-serif" color="white" variant="h4" component="h1" align="center" gutterBottom>
+                AI Chat UI
             </Typography>
             <Paper elevation={3} sx={{flexGrow: 1, display: 'flex', flexDirection: 'column'}}>
                 <ChatWindow messages={messages} selectedAi={selectedAi} onAiChange={setSelectedAi}/>
