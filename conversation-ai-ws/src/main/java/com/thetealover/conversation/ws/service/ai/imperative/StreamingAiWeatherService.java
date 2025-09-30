@@ -1,6 +1,6 @@
 package com.thetealover.conversation.ws.service.ai.imperative;
 
-import com.thetealover.conversation.ws.service.ai.common.modelsupplier.claude.ClaudeStreamingLlmSupplier;
+import com.thetealover.conversation.ws.config.ai.modelsupplier.claude.ClaudeStreamingLlmSupplier;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
 import io.quarkiverse.langchain4j.RegisterAiService;

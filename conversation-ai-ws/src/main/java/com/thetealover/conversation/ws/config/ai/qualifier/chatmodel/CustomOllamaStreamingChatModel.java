@@ -1,4 +1,4 @@
-package com.thetealover.conversation.ws.config.ai.qualifier;
+package com.thetealover.conversation.ws.config.ai.qualifier.chatmodel;
 
 import static java.lang.annotation.ElementType.*;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
@@ -10,4 +10,4 @@ import java.lang.annotation.Target;
 @Qualifier
 @Retention(RUNTIME)
 @Target({TYPE, METHOD, FIELD, PARAMETER})
-public @interface WeatherOllamaChatModel {}
+public @interface CustomOllamaStreamingChatModel {}

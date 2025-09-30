@@ -1,4 +1,4 @@
-package com.thetealover.conversation.ws.service.ai.common.modelsupplier.ollama;
+package com.thetealover.conversation.ws.config.ai.modelsupplier.ollama;
 
 import static com.thetealover.conversation.ws.config.properties.AiConfigurationPropertiesProvider.getLocalOllamaProperties;
 
@@ -22,5 +22,9 @@ public class OllamaStreamingLlmSupplier implements Supplier<StreamingChatModel> 
         .logResponses(localOllamaProperties.getLogResponses())
         .httpClientBuilder(HttpClientBuilderLoader.loadHttpClientBuilder())
         .build();
+  }
+
+  public static StreamingChatModel getOllamaChatModel() {
+    return new OllamaStreamingLlmSupplier().get();
   }
 }

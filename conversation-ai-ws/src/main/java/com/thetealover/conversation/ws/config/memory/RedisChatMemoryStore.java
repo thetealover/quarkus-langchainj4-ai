@@ -7,7 +7,7 @@ import com.thetealover.conversation.ws.config.serde.CustomChatMessageCodec;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
 import jakarta.annotation.PreDestroy;
-import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Singleton;
 import java.net.URI;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +16,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-@ApplicationScoped
+@Singleton
 public class RedisChatMemoryStore implements ChatMemoryStore {
   private final CustomChatMessageCodec chatMessageCodec;
   private final JedisPool jedisPool;

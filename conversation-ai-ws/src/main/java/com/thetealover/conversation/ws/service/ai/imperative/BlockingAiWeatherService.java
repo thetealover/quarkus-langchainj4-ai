@@ -2,7 +2,7 @@ package com.thetealover.conversation.ws.service.ai.imperative;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
 
-import com.thetealover.conversation.ws.service.ai.common.modelsupplier.ollama.OllamaBlockingLlmSupplier;
+import com.thetealover.conversation.ws.config.ai.modelsupplier.ollama.OllamaBlockingLlmSupplier;
 import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;

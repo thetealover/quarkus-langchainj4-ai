@@ -1,4 +1,4 @@
-package com.thetealover.conversation.ws.service.ai.common.modelsupplier.claude;
+package com.thetealover.conversation.ws.config.ai.modelsupplier.claude;
 
 import static com.thetealover.conversation.ws.config.properties.AiConfigurationPropertiesProvider.getClaudeProperties;
 
@@ -24,5 +24,9 @@ public class ClaudeStreamingLlmSupplier implements Supplier<StreamingChatModel> 
         .logResponses(claudeProperties.getLogResponses())
         .timeout(claudeProperties.getTimeoutInSeconds())
         .build();
+  }
+
+  public static StreamingChatModel getAnthropicStreamingChatModel() {
+    return new ClaudeStreamingLlmSupplier().get();
   }
 }

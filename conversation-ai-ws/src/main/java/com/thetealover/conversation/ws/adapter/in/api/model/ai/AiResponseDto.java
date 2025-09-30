@@ -1,4 +1,4 @@
-package com.thetealover.conversation.ws.adapter.in.api.model;
+package com.thetealover.conversation.ws.adapter.in.api.model.ai;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
