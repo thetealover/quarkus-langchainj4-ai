@@ -15,11 +15,16 @@ function Message({message}: MessageProps) {
             <Paper
                 elevation={1}
                 sx={{
-                    p: 1.5,
-                    bgcolor: isUser ? 'primary.main' : 'grey.300',
+                    pr: 2,
+                    pl: 2,
+                    pt: 1.5,
+                    pb: 1.5,
+                    // Use theme colors for message bubbles
+                    bgcolor: isUser ? 'primary.main' : 'grey.200',
                     color: isUser ? 'primary.contrastText' : 'text.primary',
-                    maxWidth: '80%',
-                    wordWrap: 'break-word',
+                    maxWidth: '95%',
+                    wordWrap: 'inherit',
+                    borderRadius: isUser ? '20px 20px 5px 20px' : '20px 20px 20px 5px', // Rounded corners
                 }}
             >
                 {message.isStreaming ? (

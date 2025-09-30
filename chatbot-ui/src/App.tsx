@@ -6,6 +6,7 @@ import {Container, Typography, Paper} from "@mui/material";
 
 const API_BASE_URL = 'http://localhost:8080';
 const END_OF_STREAM_TOKEN = '[END_OF_STREAM]';
+const ERROR_STREAM_TOKEN = '[ERROR]';
 
 export interface Message {
     id: string;
@@ -110,6 +111,10 @@ function App() {
                 if (token.trim() === END_OF_STREAM_TOKEN) {
                     finalizeStream();
                     return;
+                } else if (token.trim() === ERROR_STREAM_TOKEN) {
+                    addToTokenQueue('\n\nSorry, I encountered an error. Please try again later.');
+                    finalizeStream();
+                    return;
                 }
                 addToTokenQueue(token);
             };
@@ -141,7 +146,7 @@ function App() {
 
     return (
         <Container maxWidth="md" sx={{display: 'flex', flexDirection: 'column', height: '100vh', py: 2}}>
-            <Typography fontFamily="sans-serif" color="white" variant="h4" component="h1" align="center" gutterBottom>
+            <Typography fontFamily="sans-serif" variant="h4" component="h1" align="center" gutterBottom>
                 AI Chat UI
             </Typography>
             <Paper elevation={3} sx={{flexGrow: 1, display: 'flex', flexDirection: 'column'}}>
