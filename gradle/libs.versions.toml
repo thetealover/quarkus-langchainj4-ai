@@ -1,14 +1,14 @@
 [versions]
-langchain4jVersion = '1.6.0'
+langchain4jVersion = '1.5.0'
 lombokVersion = '1.18.42'
 quarkusMicrometerOtlpVersion = '3.4.1'
-quarkusOpenTelemetryVersion = '3.28.1'
-quarkusMcpServerSseVersion = '1.6.0'
-quarkusMcpClientSseVersion = '1.6.0'
-quarkusLangchain4jCoreVersion = '1.2.0'
-quarkusLangchain4jPgVectorVersion = '1.2.0'
-langchain4jAgenticVersion = '1.6.0-beta12'
-quarkusMcpVersion = '1.2.0'
+quarkusOpenTelemetryVersion = '3.28.0'
+quarkusMcpServerSseVersion = '1.5.3'
+quarkusMcpClientSseVersion = '1.5.3'
+quarkusLangchain4jCoreVersion = '1.1.4'
+quarkusLangchain4jPgVectorVersion = '1.1.4'
+langchain4jAgenticVersion = '1.5.0-beta11'
+quarkusMcpVersion = '1.1.4'
 langchain4jPgVectorVersion = '0.36.2'
 spotlessVersion = '6.23.3'
 googleJavaFormatVersion = '1.19.1'
@@ -17,12 +17,12 @@ smallryeJandexVersion = '3.5.0'
 hibernateValidatorVersion = '9.0.1.Final'
 jedisVersion = '6.2.0'
 
-quarkusLangchain4jOllamaVersion = '1.2.0'
+quarkusLangchain4jOllamaVersion = '1.1.4'
 quarkusLangchain4jAnthropicRuntimeVersion = '1.2.0'
 quarkusLangchain4jAnthropicDeploymentVersion = '1.2.0'
 
 
-assertjCoreVersion = '3.27.6'
+assertjCoreVersion = '3.27.5'
 
 [libraries]
 quarkusRest = { module = "io.quarkus:quarkus-rest" }
