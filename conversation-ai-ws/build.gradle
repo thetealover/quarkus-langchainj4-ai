@@ -40,6 +40,9 @@ dependencies {
     implementation(libs.quarkusLangchain4jAnthropicRuntime)
     implementation(libs.quarkusLangchain4jAnthropicDeployment)
 
+    implementation(libs.quarkusHibernateOrmPanache)
+    implementation(libs.quarkusJdbcMysql)
+
     implementation(libs.jedis)
 //    implementation(libs.langchain4jPgVector)
 //    implementation(libs.quarkusLangchain4jPgVector)

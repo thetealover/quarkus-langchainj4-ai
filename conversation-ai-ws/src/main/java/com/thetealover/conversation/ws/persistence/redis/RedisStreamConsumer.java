@@ -1,7 +1,7 @@
-package com.thetealover.conversation.ws.service.redis;
+package com.thetealover.conversation.ws.persistence.redis;
 
-import static com.thetealover.conversation.ws.service.redis.RedisStreamPublisher.END_OF_STREAM_MESSAGE;
-import static com.thetealover.conversation.ws.service.redis.RedisStreamPublisher.ERROR_MESSAGE;
+import static com.thetealover.conversation.ws.persistence.redis.RedisStreamPublisher.END_OF_STREAM_MESSAGE;
+import static com.thetealover.conversation.ws.persistence.redis.RedisStreamPublisher.ERROR_MESSAGE;
 import static java.util.UUID.randomUUID;
 
 import io.quarkus.redis.datasource.ReactiveRedisDataSource;

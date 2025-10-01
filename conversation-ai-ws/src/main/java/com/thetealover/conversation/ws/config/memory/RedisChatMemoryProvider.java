@@ -19,7 +19,7 @@ public class RedisChatMemoryProvider implements ChatMemoryProvider {
         getConversationWsConfigurationProperties();
 
     return MessageWindowChatMemory.builder()
-        .id("USR%s".formatted(memoryId))
+        .id(memoryId)
         .chatMemoryStore(redisChatMemoryStore)
         .maxMessages(wsConfigurationProperties.getChatMemoryMaxMessages())
         .build();

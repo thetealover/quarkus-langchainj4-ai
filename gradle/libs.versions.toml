@@ -56,6 +56,9 @@ hibernateValidator = { module = "org.hibernate.validator:hibernate-validator", v
 
 smallryeJandex = { module = "io.smallrye:jandex", version.ref = "smallryeJandexVersion" }
 
+quarkusHibernateOrmPanache = { module = "io.quarkus:quarkus-hibernate-orm-panache" }
+quarkusJdbcMysql = { module = "io.quarkus:quarkus-jdbc-mysql" }
+
 quarkusJunit5 = { module = "io.quarkus:quarkus-junit5" }
 quarkusRestAssured = { module = "io.rest-assured:rest-assured" }
 assertjCore = { module = "org.assertj:assertj-core", version.ref = "assertjCoreVersion" }

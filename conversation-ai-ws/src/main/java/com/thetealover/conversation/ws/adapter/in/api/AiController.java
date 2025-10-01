@@ -6,12 +6,14 @@ import com.thetealover.conversation.ws.adapter.in.api.model.StreamCreationRespon
 import com.thetealover.conversation.ws.adapter.in.api.model.ai.AiRequestDto;
 import com.thetealover.conversation.ws.config.ai.qualifier.service.SportsTokenStreamingService;
 import com.thetealover.conversation.ws.config.ai.qualifier.service.WeatherTokenStreamingService;
+import com.thetealover.conversation.ws.persistence.redis.RedisStreamConsumer;
+import com.thetealover.conversation.ws.persistence.redis.RedisStreamPublisher;
+import com.thetealover.conversation.ws.service.ai.common.event.UserMessageSentEvent;
 import com.thetealover.conversation.ws.service.ai.common.service.TokenStreamingService;
 import com.thetealover.conversation.ws.service.ai.quarkus.ClaudeStreamingAiWeatherService;
-import com.thetealover.conversation.ws.service.redis.RedisStreamConsumer;
-import com.thetealover.conversation.ws.service.redis.RedisStreamPublisher;
 import dev.langchain4j.service.TokenStream;
 import io.smallrye.mutiny.Multi;
+import jakarta.enterprise.event.Event;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -28,6 +30,8 @@ public class AiController {
   @Inject @SportsTokenStreamingService TokenStreamingService sportsTokenStreamingService;
   @Inject RedisStreamPublisher redisStreamPublisher;
   @Inject RedisStreamConsumer redisStreamConsumer;
+
+  @Inject Event<UserMessageSentEvent> userMessageEvent;
 
   @POST
   @Path("stream/weather")
@@ -61,12 +65,13 @@ public class AiController {
   public StreamCreationResponseDto chatWithWeatherService(
       @Valid @NotNull final AiRequestDto request) {
     log.info("Received request to start weather stream: {}", request);
+    userMessageEvent.fire(new UserMessageSentEvent(request.getUserId(), request.getMessage()));
 
-    final String streamKey = "weather-stream:%s".formatted(randomUUID());
+    final String streamKey = "weather:%s".formatted(randomUUID());
     final TokenStream tokenStream =
         weatherTokenStreamingService.chat(request.getUserId(), request.getMessage());
 
-    redisStreamPublisher.publish(streamKey, tokenStream);
+    redisStreamPublisher.publish(streamKey, tokenStream, request.getUserId());
 
     log.info("Started streaming to Redis stream key: {}", streamKey);
     return new StreamCreationResponseDto(streamKey);
@@ -85,12 +90,13 @@ public class AiController {
   public StreamCreationResponseDto chatWithSportsService(
       @Valid @NotNull final AiRequestDto request) {
     log.info("Received request to start sports stream: {}", request);
+    userMessageEvent.fire(new UserMessageSentEvent(request.getUserId(), request.getMessage()));
 
-    final String streamKey = "sports-stream:%s".formatted(randomUUID());
+    final String streamKey = "sports:%s".formatted(randomUUID());
     final TokenStream tokenStream =
         sportsTokenStreamingService.chat(request.getUserId(), request.getMessage());
 
-    redisStreamPublisher.publish(streamKey, tokenStream);
+    redisStreamPublisher.publish(streamKey, tokenStream, request.getUserId());
 
     log.info("Started streaming to Redis stream key: {}", streamKey);
     return new StreamCreationResponseDto(streamKey);

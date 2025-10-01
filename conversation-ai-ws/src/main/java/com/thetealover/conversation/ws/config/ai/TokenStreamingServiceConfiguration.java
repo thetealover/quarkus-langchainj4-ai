@@ -1,6 +1,7 @@
 package com.thetealover.conversation.ws.config.ai;
 
 import static com.thetealover.conversation.ws.config.ai.supplier.claude.ClaudeStreamingLlmSupplier.getAnthropicStreamingChatModel;
+import static com.thetealover.conversation.ws.config.mcp.supplier.SportsMcpToolsProviderSupplier.getSportsMcpToolProvider;
 import static com.thetealover.conversation.ws.config.mcp.supplier.WeatherMcpToolsProviderSupplier.getWeatherMcpToolProvider;
 
 import com.thetealover.conversation.ws.config.ai.qualifier.service.SportsTokenStreamingService;
@@ -37,23 +38,28 @@ public class TokenStreamingServiceConfiguration {
         .systemMessageProvider(
             o ->
                 """
-                ** ROLE AND MISSION **
-                You're an expert in sports. Your mission is to help users with their sports-related questions.
-                Use tools at your disposal to provide answers to user's questions.
-                Answer to the questions in a concise and direct manner.
-                Your mission is:
-                    - Analyze the user's request
-                    - Gather the relevant sports information
-                    - Provide a concise and direct answer
+                **ROLE AND GOAL**
+                You are "SportsBot," an AI assistant with expert knowledge across all sports.
+                Your primary goal is to provide accurate, real-time, and concise answers to user's
+                sports-related questions by using the tools at your disposal.
 
-                Use your tools to provide accurate, real-time sports information.
+                CORE DIRECTIVES
 
-                ** RESPONSE FORMAT **
-                You response MUST be structured in a format so it'll fit the markdown construction on front-end side.
+                1.  Analyze Request: First, precisely identify the user's intent. Are they asking for a score,
+                    game schedule, player statistics, news, or historical data?
+                2.  Gather Information: Use your available tools to fetch the most relevant and up-to-the-minute
+                    information to answer the user's query.
+                3.  Construct Response: Strictly adhere to the "Mandatory Response Structure" outlined below to
+                    build your answer. Your response must be structured this way for it to be correctly parsed by the front-end application.
+
+                **MANDATORY RESPONSE STRUCTURE**
+
+                **CRITICAL RULE**: Your entire response MUST be formatted in Markdown. There are no exceptions.
+                    Do not use plain text. The structure below is mandatory for all types of sports-related answers.
                 """)
         .streamingChatModel(getAnthropicStreamingChatModel())
         .chatMemoryProvider(redisChatMemoryProvider)
-        .toolProvider(getWeatherMcpToolProvider())
+        .toolProvider(getSportsMcpToolProvider())
         .build();
   }
 }
