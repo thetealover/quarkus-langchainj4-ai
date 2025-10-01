@@ -1,7 +1,8 @@
 package com.thetealover.conversation.ws.adapter.in.websocket;
 
-import com.thetealover.conversation.ws.service.ai.imperative.StreamingAiWeatherService;
+import com.thetealover.conversation.ws.service.ai.quarkus.ClaudeStreamingAiWeatherService;
 import dev.langchain4j.data.message.ChatMessage;
+import dev.langchain4j.service.TokenStream;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
 import io.quarkus.websockets.next.*;
 import io.smallrye.mutiny.Multi;
@@ -12,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @WebSocket(path = "streaming/weather-ai")
 public class StreamingWeatherAiWebSocket {
-  @Inject StreamingAiWeatherService streamingAiWeatherService;
+  @Inject ClaudeStreamingAiWeatherService claudeStreamingAiWeatherService;
   @Inject ChatMemoryStore memoryStore;
 
   @OnOpen
@@ -29,6 +30,21 @@ public class StreamingWeatherAiWebSocket {
     log.info(
         "Total messages count in memory for Connection ID {}: {}", connectionId, messages.size());
 
-    return streamingAiWeatherService.chat(message);
+    final TokenStream tokenStream = claudeStreamingAiWeatherService.chat(connectionId, message);
+    return Multi.createFrom()
+        .emitter(
+            emitter ->
+                tokenStream
+                    .onCompleteResponse(
+                        response -> {
+                          log.info("Stream complete");
+                          emitter.complete();
+                        })
+                    .onError(
+                        error -> {
+                          log.error("Error during token streaming", error);
+                          emitter.fail(error);
+                        })
+                    .start());
   }
 }

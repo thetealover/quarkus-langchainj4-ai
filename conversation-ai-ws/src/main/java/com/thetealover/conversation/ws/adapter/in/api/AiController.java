@@ -1,17 +1,13 @@
 package com.thetealover.conversation.ws.adapter.in.api;
 
-import static java.time.temporal.ChronoUnit.MILLIS;
 import static java.util.UUID.randomUUID;
 
 import com.thetealover.conversation.ws.adapter.in.api.model.StreamCreationResponseDto;
 import com.thetealover.conversation.ws.adapter.in.api.model.ai.AiRequestDto;
-import com.thetealover.conversation.ws.adapter.in.api.model.ai.AiResponseDto;
 import com.thetealover.conversation.ws.config.ai.qualifier.service.SportsTokenStreamingService;
 import com.thetealover.conversation.ws.config.ai.qualifier.service.WeatherTokenStreamingService;
-import com.thetealover.conversation.ws.service.ai.BlockingAiF1Service;
-import com.thetealover.conversation.ws.service.ai.BlockingAiGeneralService;
 import com.thetealover.conversation.ws.service.ai.common.service.TokenStreamingService;
-import com.thetealover.conversation.ws.service.ai.imperative.StreamingAiWeatherService;
+import com.thetealover.conversation.ws.service.ai.quarkus.ClaudeStreamingAiWeatherService;
 import com.thetealover.conversation.ws.service.redis.RedisStreamConsumer;
 import com.thetealover.conversation.ws.service.redis.RedisStreamPublisher;
 import dev.langchain4j.service.TokenStream;
@@ -21,65 +17,43 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
-import java.time.Instant;
 import lombok.extern.slf4j.Slf4j;
 import org.jboss.resteasy.reactive.RestStreamElementType;
 
 @Slf4j
 @Path("/ai")
 public class AiController {
-  @Inject StreamingAiWeatherService ollamaAiWeatherService;
-  @Inject BlockingAiGeneralService blockingAiGeneralService;
-  @Inject BlockingAiF1Service blockingAiF1Service;
+  @Inject ClaudeStreamingAiWeatherService claudeStreamingAiWeatherService;
   @Inject @WeatherTokenStreamingService TokenStreamingService weatherTokenStreamingService;
   @Inject @SportsTokenStreamingService TokenStreamingService sportsTokenStreamingService;
   @Inject RedisStreamPublisher redisStreamPublisher;
   @Inject RedisStreamConsumer redisStreamConsumer;
 
   @POST
-  @Path("blocking/general")
-  public AiResponseDto askQuestion(@Valid @NotNull final AiRequestDto request) {
-    log.info("Received request: {}", request);
-
-    final Instant start = Instant.now();
-    final String llmResponse = blockingAiGeneralService.askQuestion(request.getMessage());
-    final Instant end = Instant.now();
-
-    final AiResponseDto response =
-        AiResponseDto.builder()
-            .response(llmResponse)
-            .thinkingTimeInMillis(MILLIS.between(start, end))
-            .build();
-
-    log.info("Responding with: {}", response);
-    return response;
-  }
-
-  @POST
-  @Path("blocking/f1")
-  public AiResponseDto askQuestionAboutF1(@Valid @NotNull final AiRequestDto request) {
-    log.info("Received request: {}", request);
-
-    final Instant start = Instant.now();
-    final String llmResponse = blockingAiF1Service.searchF1Drivers(request.getMessage());
-    final Instant end = Instant.now();
-
-    final AiResponseDto response =
-        AiResponseDto.builder()
-            .response(llmResponse)
-            .thinkingTimeInMillis(MILLIS.between(start, end))
-            .build();
-
-    log.info("Responding with: {}", response);
-    return response;
-  }
-
-  @POST
   @Path("stream/weather")
   public Multi<String> askForWeather(@Valid @NotNull final AiRequestDto request) {
     log.info("Received request: {}", request);
 
-    return ollamaAiWeatherService.chat(request.getMessage());
+    final TokenStream tokenStream =
+        claudeStreamingAiWeatherService.chat(request.getUserId(), request.getMessage());
+
+    return Multi.createFrom()
+        .emitter(
+            emitter ->
+                tokenStream
+                    .onCompleteResponse(
+                        response -> {
+                          log.info("[\"/ai/stream/weather\"] endpoint stream is complete");
+                          emitter.complete();
+                        })
+                    .onError(
+                        error -> {
+                          log.error(
+                              "[\"/ai/stream/weather\"] endpoint stream ended with an error: [{}]",
+                              error.getMessage());
+                          emitter.fail(error);
+                        })
+                    .start());
   }
 
   @POST
@@ -99,7 +73,7 @@ public class AiController {
   }
 
   @GET
-  @Path("/stream/{streamKey}")
+  @Path("stream/{streamKey}")
   @Produces(MediaType.SERVER_SENT_EVENTS)
   @RestStreamElementType(MediaType.TEXT_PLAIN)
   public Multi<String> consumeStream(@PathParam("streamKey") final String streamKey) {

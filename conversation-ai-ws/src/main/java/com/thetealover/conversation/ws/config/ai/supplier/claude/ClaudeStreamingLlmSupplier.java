@@ -1,19 +1,19 @@
-package com.thetealover.conversation.ws.config.ai.modelsupplier.claude;
+package com.thetealover.conversation.ws.config.ai.supplier.claude;
 
 import static com.thetealover.conversation.ws.config.properties.AiConfigurationPropertiesProvider.getClaudeProperties;
 
 import com.thetealover.conversation.ws.config.properties.AiConfigurationPropertiesProvider.AiConfiguration;
-import dev.langchain4j.model.anthropic.AnthropicChatModel;
-import dev.langchain4j.model.chat.ChatModel;
+import dev.langchain4j.model.anthropic.AnthropicStreamingChatModel;
+import dev.langchain4j.model.chat.StreamingChatModel;
 import java.util.function.Supplier;
 
-public class ClaudeBlockingLlmSupplier implements Supplier<ChatModel> {
+public class ClaudeStreamingLlmSupplier implements Supplier<StreamingChatModel> {
 
   @Override
-  public ChatModel get() {
+  public StreamingChatModel get() {
     final AiConfiguration claudeProperties = getClaudeProperties();
 
-    return AnthropicChatModel.builder()
+    return AnthropicStreamingChatModel.builder()
         .modelName(claudeProperties.getModelId())
         .apiKey(claudeProperties.getApiKey())
         .temperature(claudeProperties.getTemperature())
@@ -22,10 +22,11 @@ public class ClaudeBlockingLlmSupplier implements Supplier<ChatModel> {
         .maxTokens(claudeProperties.getMaxTokens())
         .logRequests(claudeProperties.getLogRequests())
         .logResponses(claudeProperties.getLogResponses())
+        .timeout(claudeProperties.getTimeoutInSeconds())
         .build();
   }
 
-  public static ChatModel getAnthropicChatModel() {
-    return new ClaudeBlockingLlmSupplier().get();
+  public static StreamingChatModel getAnthropicStreamingChatModel() {
+    return new ClaudeStreamingLlmSupplier().get();
   }
 }

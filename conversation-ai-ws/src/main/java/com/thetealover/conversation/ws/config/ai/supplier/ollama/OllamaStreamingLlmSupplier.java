@@ -1,4 +1,4 @@
-package com.thetealover.conversation.ws.config.ai.modelsupplier.ollama;
+package com.thetealover.conversation.ws.config.ai.supplier.ollama;
 
 import static com.thetealover.conversation.ws.config.properties.AiConfigurationPropertiesProvider.getLocalOllamaProperties;
 

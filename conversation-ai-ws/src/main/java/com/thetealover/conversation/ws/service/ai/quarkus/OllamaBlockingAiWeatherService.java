@@ -1,8 +1,8 @@
-package com.thetealover.conversation.ws.service.ai.imperative;
+package com.thetealover.conversation.ws.service.ai.quarkus;
 
 import static java.time.temporal.ChronoUnit.SECONDS;
 
-import com.thetealover.conversation.ws.config.ai.modelsupplier.ollama.OllamaBlockingLlmSupplier;
+import com.thetealover.conversation.ws.config.ai.supplier.ollama.OllamaBlockingLlmSupplier;
 import dev.langchain4j.service.MemoryId;
 import dev.langchain4j.service.SystemMessage;
 import dev.langchain4j.service.UserMessage;
@@ -48,7 +48,7 @@ When the tool returns data, your response MUST be structured exactly like this:
 4.  **If the user asks an IRRELEVANT question:** Politely redirect: "My expertise is in real-time weather forecasts. Is there a city you'd like to check?"
 """)
 @RegisterAiService(chatLanguageModelSupplier = OllamaBlockingLlmSupplier.class)
-public interface BlockingAiWeatherService {
+public interface OllamaBlockingAiWeatherService {
 
   @McpToolBox
   @UserMessage("{message}")

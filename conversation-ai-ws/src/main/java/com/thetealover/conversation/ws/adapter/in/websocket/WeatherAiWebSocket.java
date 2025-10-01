@@ -1,6 +1,6 @@
 package com.thetealover.conversation.ws.adapter.in.websocket;
 
-import com.thetealover.conversation.ws.service.ai.imperative.BlockingAiWeatherService;
+import com.thetealover.conversation.ws.service.ai.quarkus.OllamaBlockingAiWeatherService;
 import dev.langchain4j.data.message.ChatMessage;
 import dev.langchain4j.store.memory.chat.ChatMemoryStore;
 import io.quarkus.websockets.next.OnOpen;
@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @WebSocket(path = "blocking/weather-ai")
 public class WeatherAiWebSocket {
-  @Inject BlockingAiWeatherService blockingAiWeatherService;
+  @Inject OllamaBlockingAiWeatherService ollamaBlockingAiWeatherService;
   @Inject ChatMemoryStore memoryStore;
 
   @OnOpen
@@ -31,6 +31,6 @@ public class WeatherAiWebSocket {
     log.info(
         "Total messages count in memory for Connection ID {}: {}", connectionId, messages.size());
 
-    return blockingAiWeatherService.chat(connectionId, message);
+    return ollamaBlockingAiWeatherService.chat(connectionId, message);
   }
 }

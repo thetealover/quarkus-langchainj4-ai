@@ -1,28 +1,24 @@
 package com.thetealover.conversation.ws.config.ai;
 
-import com.thetealover.conversation.ws.config.ai.qualifier.chatmodel.WeatherOllamaChatModel;
+import static com.thetealover.conversation.ws.config.ai.supplier.ollama.OllamaBlockingLlmSupplier.getOllamaChatModel;
+import static com.thetealover.conversation.ws.config.mcp.supplier.WeatherMcpToolsProviderSupplier.getWeatherMcpToolProvider;
+
 import com.thetealover.conversation.ws.config.ai.qualifier.service.WeatherBlockingAiService;
-import com.thetealover.conversation.ws.config.mcp.qualifier.WeatherMcpToolProvider;
 import com.thetealover.conversation.ws.service.ai.common.service.BlockingAiService;
 import dev.langchain4j.memory.chat.MessageWindowChatMemory;
-import dev.langchain4j.model.chat.ChatModel;
 import dev.langchain4j.service.AiServices;
-import dev.langchain4j.service.tool.ToolProvider;
 import jakarta.enterprise.inject.Produces;
-import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
 @Singleton
-public class AiServiceConfiguration {
-  @Inject @WeatherOllamaChatModel ChatModel customOllamaChatModel;
-  @Inject @WeatherMcpToolProvider ToolProvider mcpToolProvider;
+public class BlockingAiServiceConfiguration {
 
   @Produces
   @WeatherBlockingAiService
   public BlockingAiService weatherBlockingAiService() {
     return AiServices.builder(BlockingAiService.class)
-        .chatModel(customOllamaChatModel)
-        .toolProvider(mcpToolProvider)
+        .chatModel(getOllamaChatModel())
+        .toolProvider(getWeatherMcpToolProvider())
         .chatMemory(MessageWindowChatMemory.withMaxMessages(20))
         .systemMessageProvider(
             chatMemoryId ->
