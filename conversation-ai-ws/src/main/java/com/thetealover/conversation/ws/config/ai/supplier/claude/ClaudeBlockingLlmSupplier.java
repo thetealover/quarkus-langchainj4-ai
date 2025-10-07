@@ -22,6 +22,7 @@ public class ClaudeBlockingLlmSupplier implements Supplier<ChatModel> {
         .maxTokens(claudeProperties.getMaxTokens())
         .logRequests(claudeProperties.getLogRequests())
         .logResponses(claudeProperties.getLogResponses())
+        .timeout(claudeProperties.getTimeoutInSeconds())
         .build();
   }
 

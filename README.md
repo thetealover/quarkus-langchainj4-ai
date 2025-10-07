@@ -6,14 +6,18 @@ Quarkus Application using LangChain4j AI to interact with Ollama local running m
 
 - JDK 21
 - Docker
-- Ollama
-    - Ollama AI model `llama3-groq-tool-use`
-- NPM (Optional for chatbot-ui compilation)
+- AI Model
+    - Anthropic Claude token
+    - Ollama (for free, local use)
+        - Ollama AI model `llama3-groq-tool-use`
+- NPM (recommended to build and run a Chatbot UI on a local machine)
 
 ## Packaging and running the application
 
-Running Redis locally is required.
-Redis can be started up using the Docker Compose file:
+Running Redis and MySQL locally is required.
+All the upper mentioned can be run using the Docker Compose file:
+
+Start up the Docker Compose containers in detached mode:
 
 ```shell script
 docker compose up -d
@@ -28,7 +32,7 @@ The application can be packaged using:
 Running the application:
 
 The web services should be running using `dev` profile locally.
-Execute the following commands in seperate terminal sessions.
+Execute the following commands in separate terminal sessions.
 
 ```shell script
 ./gradlew clean spotlessApply mcp-ws:quarkusDev 
@@ -49,6 +53,7 @@ npm install
 ```
 
 To run the application locally:
+
 ```shell script
 npm run dev
 ```
