@@ -15,7 +15,7 @@ googleJavaFormatVersion = '1.19.1'
 jandexPluginVersion = '2.2.0'
 smallryeJandexVersion = '3.5.0'
 hibernateValidatorVersion = '9.0.1.Final'
-jedisVersion = '6.2.0'
+jedisVersion = '7.0.0'
 
 quarkusLangchain4jOllamaVersion = '1.3.0'
 quarkusLangchain4jAnthropicRuntimeVersion = '1.3.0'
