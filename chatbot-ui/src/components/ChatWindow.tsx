@@ -33,6 +33,7 @@ function ChatWindow({messages, selectedAi, onAiChange}: ChatWindowProps) {
                 >
                     <MenuItem value="imperative/stream/sports">Sports</MenuItem>
                     <MenuItem value="imperative/stream/weather">Weather</MenuItem>
+                    <MenuItem value="jarvis">Jarvis</MenuItem>
                 </Select>
             </FormControl>
             <Box sx={{display: 'flex', flexDirection: 'column', gap: 2}}>

@@ -8,11 +8,22 @@ import org.eclipse.microprofile.config.ConfigProvider;
 
 public class McpConfigurationPropertiesProvider {
 
-  public static McpConfigurationProperties getMcpConfigurationProperties() {
+  public static McpConfigurationProperties getStreamableMcpConfigurationProperties() {
     final Config config = ConfigProvider.getConfig();
 
     return McpConfigurationProperties.builder()
-        .baseUrl(config.getValue("mcp.base-url", String.class))
+        .baseUrl(config.getValue("mcp.streamable-base-url", String.class))
+        .timeoutInSeconds(Duration.ofSeconds(config.getValue("mcp.timeout-in-seconds", Long.class)))
+        .logRequests(config.getValue("mcp.log-requests", Boolean.class))
+        .logResponses(config.getValue("mcp.log-responses", Boolean.class))
+        .build();
+  }
+
+  public static McpConfigurationProperties getSseMcpConfigurationProperties() {
+    final Config config = ConfigProvider.getConfig();
+
+    return McpConfigurationProperties.builder()
+        .baseUrl(config.getValue("mcp.sse-base-url", String.class))
         .timeoutInSeconds(Duration.ofSeconds(config.getValue("mcp.timeout-in-seconds", Long.class)))
         .logRequests(config.getValue("mcp.log-requests", Boolean.class))
         .logResponses(config.getValue("mcp.log-responses", Boolean.class))

@@ -4,6 +4,7 @@ import static java.util.UUID.randomUUID;
 
 import com.thetealover.conversation.ws.adapter.in.api.model.StreamCreationResponseDto;
 import com.thetealover.conversation.ws.adapter.in.api.model.ai.AiRequestDto;
+import com.thetealover.conversation.ws.config.ai.qualifier.service.JarvisTokenStreamingService;
 import com.thetealover.conversation.ws.config.ai.qualifier.service.SportsTokenStreamingService;
 import com.thetealover.conversation.ws.config.ai.qualifier.service.WeatherTokenStreamingService;
 import com.thetealover.conversation.ws.persistence.redis.RedisStreamConsumer;
@@ -28,6 +29,7 @@ public class AiController {
   @Inject ClaudeStreamingAiWeatherService claudeStreamingAiWeatherService;
   @Inject @WeatherTokenStreamingService TokenStreamingService weatherTokenStreamingService;
   @Inject @SportsTokenStreamingService TokenStreamingService sportsTokenStreamingService;
+  @Inject @JarvisTokenStreamingService TokenStreamingService jarvisTokenStreamingService;
   @Inject RedisStreamPublisher redisStreamPublisher;
   @Inject RedisStreamConsumer redisStreamConsumer;
 
@@ -95,6 +97,23 @@ public class AiController {
     final String streamKey = "sports:%s".formatted(randomUUID());
     final TokenStream tokenStream =
         sportsTokenStreamingService.chat(request.getUserId(), request.getMessage());
+
+    redisStreamPublisher.publish(streamKey, tokenStream, request.getUserId());
+
+    log.info("Started streaming to Redis stream key: {}", streamKey);
+    return new StreamCreationResponseDto(streamKey);
+  }
+
+  @POST
+  @Path("/jarvis")
+  public StreamCreationResponseDto chatWithJarvisService(
+      @Valid @NotNull final AiRequestDto request) {
+    log.info("Received request to start Jarvis stream: {}", request);
+    userMessageEvent.fire(new UserMessageSentEvent(request.getUserId(), request.getMessage()));
+
+    final String streamKey = "jarvis:%s".formatted(randomUUID());
+    final TokenStream tokenStream =
+        jarvisTokenStreamingService.chat(request.getUserId(), request.getMessage());
 
     redisStreamPublisher.publish(streamKey, tokenStream, request.getUserId());
 

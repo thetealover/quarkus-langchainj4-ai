@@ -5,8 +5,10 @@ import static com.thetealover.conversation.ws.config.properties.AiConfigurationP
 import com.thetealover.conversation.ws.config.properties.AiConfigurationPropertiesProvider.AiConfiguration;
 import dev.langchain4j.model.anthropic.AnthropicChatModel;
 import dev.langchain4j.model.chat.ChatModel;
+import jakarta.inject.Singleton;
 import java.util.function.Supplier;
 
+@Singleton
 public class ClaudeBlockingLlmSupplier implements Supplier<ChatModel> {
 
   @Override
