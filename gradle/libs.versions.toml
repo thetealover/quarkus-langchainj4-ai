@@ -17,6 +17,9 @@ smallryeJandexVersion = '3.5.0'
 hibernateValidatorVersion = '9.0.1.Final'
 jedisVersion = '7.0.0'
 
+langGrapj4jVersion = '1.6.5'
+langGrapj4jAgentExecutorVersion = '1.6.5'
+
 quarkusLangchain4jOllamaVersion = '1.3.0'
 quarkusLangchain4jAnthropicRuntimeVersion = '1.3.0'
 quarkusLangchain4jAnthropicDeploymentVersion = '1.3.0'
@@ -49,6 +52,9 @@ langchain4j = { module = "dev.langchain4j:langchain4j", version.ref = "langchain
 langchain4jAgentic = { module = "dev.langchain4j:langchain4j-agentic", version.ref = "langchain4jAgenticVersion" }
 langchain4jPgVector = { module = "dev.langchain4j:langchain4j-pgvector", version.ref = "langchain4jPgVectorVersion" }
 quarkusLangchain4jPgVector = { module = "io.quarkiverse.langchain4j:quarkus-langchain4j-pgvector", version.ref = "quarkusLangchain4jPgVectorVersion" }
+
+langGraph4j = { module = "org.bsc.langgraph4j:langgraph4j-langchain4j", version.ref = "langGrapj4jVersion" }
+langGraph4jAgentExecutor = { module = "org.bsc.langgraph4j:langgraph4j-agent-executor", version.ref = "langGrapj4jAgentExecutorVersion" }
 
 jedis = { module = "redis.clients:jedis", version.ref = "jedisVersion" }
 lombok = { module = "org.projectlombok:lombok", version.ref = "lombokVersion" }

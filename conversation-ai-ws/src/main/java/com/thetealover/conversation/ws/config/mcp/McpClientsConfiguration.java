@@ -15,7 +15,7 @@ public class McpClientsConfiguration {
 
   public static final String WEATHER_MCP_CLIENT_NAME = "weatherClient";
   public static final String SPORTS_MCP_CLIENT_NAME = "sportsClient";
-  public static final String MCP_PROTOCOL_VERSION = "2025-03-26";
+  public static final String MCP_PROTOCOL_VERSION = "2025-06-18";
 
   public static McpClient weatherMcpClient() {
     return new DefaultMcpClient.Builder()

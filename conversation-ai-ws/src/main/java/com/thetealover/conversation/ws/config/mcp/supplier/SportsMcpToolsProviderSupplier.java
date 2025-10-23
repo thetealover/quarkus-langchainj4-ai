@@ -5,8 +5,11 @@ import static com.thetealover.conversation.ws.config.mcp.ToolName.SPORTS_TOOLS;
 
 import dev.langchain4j.service.tool.ToolProvider;
 import io.quarkiverse.langchain4j.mcp.runtime.QuarkusMcpToolProvider;
+import jakarta.enterprise.context.ApplicationScoped;
+
 import java.util.function.Supplier;
 
+@ApplicationScoped
 public class SportsMcpToolsProviderSupplier implements Supplier<ToolProvider> {
   @Override
   public ToolProvider get() {

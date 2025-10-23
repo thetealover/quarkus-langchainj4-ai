@@ -24,15 +24,16 @@ dependencies {
     implementation(libs.quarkusRestJackson)
     implementation(libs.quarkusSmallryeFaultTolerance)
 
-    implementation(libs.quarkusMicrometerOtlp)
-    implementation(libs.quarkusOpenTelemetry)
-    implementation(libs.quarkusObservabilityDevservicesLgtm)
+//    implementation(libs.quarkusMicrometerOtlp)
+//    implementation(libs.quarkusOpenTelemetry)
+//    implementation(libs.quarkusObservabilityDevservicesLgtm)
 
     implementation(libs.quarkusMcp)
     implementation(libs.quarkusMcpClientSse)
     implementation(libs.quarkusLangchain4jCore)
     implementation(libs.langchain4j)
-    implementation(libs.langchain4jAgentic)
+    implementation(libs.langGraph4j)
+    implementation(libs.langGraph4jAgentExecutor)
 
     implementation(libs.quarkusLangchain4jOllama) {
         exclude group: "io.quarkiverse.langchain4j", module: "quarkus-langchain4j-jaxrs-client"
